@@ -9,7 +9,7 @@ export interface NavRoute {
 export const siteConfig = {
   name: 'gabrielblindado.com.br',
   author: 'Gabriel Blindado',
-  url: 'https://gabrielblindado.com.br',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://gabrielblindado.com.br',
   github: 'https://github.com/gab618',
   repo: 'https://github.com/gab618/gabriel-blindado',
   license: 'CC BY-SA 4.0 / MIT',

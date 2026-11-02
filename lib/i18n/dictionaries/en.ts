@@ -9,6 +9,7 @@ export const en = {
     title: 'gabrielblindado.com.br',
     subtitle: 'Software Engineering, Systems & Technical Wiki',
     sourceCode: 'Source Code',
+    rss: 'RSS Feed',
     license: 'License CC BY-SA 4.0 / MIT',
     builtWith: 'Statically generated with Next.js & zero bloat',
   },

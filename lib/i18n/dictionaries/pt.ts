@@ -15,6 +15,7 @@ export const pt = {
     title: 'gabrielblindado.com.br',
     subtitle: 'Engenharia de Software, Sistemas & Wiki Técnica',
     sourceCode: 'Código-fonte',
+    rss: 'Feed RSS',
     license: 'Licença CC BY-SA 4.0 / MIT',
     builtWith: 'Gerado estaticamente com Next.js & zero bloat',
   },
