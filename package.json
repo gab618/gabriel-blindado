@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:boundaries": "node --no-warnings --experimental-strip-types scripts/check-boundaries.ts",
+    "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:boundaries && pnpm build"
   },
   "dependencies": {
     "@shikijs/rehype": "^4.5.0",
