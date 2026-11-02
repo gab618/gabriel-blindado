@@ -4,6 +4,8 @@ import { href } from '@/lib/i18n/href';
 import { NAV_ROUTES, siteConfig } from '@/lib/site';
 import type { Dictionary } from '@/lib/i18n/dictionaries/pt';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { ThemeToggle } from '@/components/islands/ThemeToggle';
+import { QuickSearch } from '@/components/islands/QuickSearch';
 
 export interface SiteHeaderProps {
   lang: Locale;
@@ -34,7 +36,11 @@ export function SiteHeader({ lang, dictionary }: SiteHeaderProps) {
             <p className="text-xs text-muted font-mono">{dictionary.site.subtitle}</p>
           </div>
 
-          <LanguageSwitcher currentLang={lang} />
+          <div className="flex items-center gap-2">
+            <QuickSearch lang={lang} labels={dictionary.search} />
+            <ThemeToggle labels={dictionary.theme} />
+            <LanguageSwitcher currentLang={lang} />
+          </div>
         </div>
 
         {/* Primary navigation */}

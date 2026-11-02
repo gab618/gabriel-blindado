@@ -4,7 +4,7 @@ import type { Route } from 'next';
 import { notFound } from 'next/navigation';
 import { ACTIVE_LOCALES, isLocale, type Locale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/get-dictionary';
-import { getAllPosts, getPostBySlug } from '@/lib/content';
+import { getAllPosts, getPostBySlug, getBacklinks } from '@/lib/content';
 import { Breadcrumbs, type BreadcrumbItem } from '@/components/layout/Breadcrumbs';
 import { PostMetaLine } from '@/components/content/PostMetaLine';
 import { Toc } from '@/components/content/Toc';
@@ -67,6 +67,8 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
     notFound();
   }
 
+  const backlinks = await getBacklinks(locale, slug);
+
   // Constrói migalhas de pão dinâmicas a partir da hierarquia do slug
   const breadcrumbs: BreadcrumbItem[] = [
     { label: dictionary.nav.home, href: href(locale, '/') },
@@ -115,6 +117,26 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
       <div className="prose-wiki mt-6">
         {post.body}
       </div>
+
+      {/* Backlinks */}
+      {backlinks.length > 0 && (
+        <section className="border border-border p-4 bg-code-bg/30 space-y-2 mt-8">
+          <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-fg">
+            # {dictionary.wiki.backlinks} ({backlinks.length})
+          </h2>
+          <ul className="space-y-1 font-mono text-xs">
+            {backlinks.map((bl) => (
+              <li key={bl.href} className="flex items-center gap-2">
+                <span className="text-muted">&rarr;</span>
+                <Link href={bl.href as Route} className="text-link hover:underline">
+                  {bl.title}
+                </Link>
+                <span className="text-[10px] text-muted">[{bl.collection}]</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Rodapé da nota com links úteis */}
       <footer className="border-t border-border pt-4 mt-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">

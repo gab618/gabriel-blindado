@@ -29,6 +29,19 @@ export const en = {
   breadcrumbs: {
     prefix: 'Location:',
   },
+  theme: {
+    auto: 'auto',
+    light: 'light',
+    dark: 'dark',
+    toggleTheme: 'Toggle theme (auto/dark/light)',
+  },
+  search: {
+    placeholder: 'Search wiki, til and tags (Ctrl+K)...',
+    openSearch: 'Search',
+    noResults: 'No notes found for query.',
+    close: 'Close [Esc]',
+    resultsFound: 'result(s)',
+  },
   home: {
     heroGreeting: 'Gabriel Blindado',
     heroBio: 'Software Engineer & Frontend Architect. This site is my personal digital garden, permanent technical notebook, and laboratory of micro-tools built with Debian and Arch Wiki minimalism.',
@@ -71,6 +84,7 @@ export const en = {
     emptyCategory: 'No documents in this category.',
     allDocuments: 'All Documents',
     tagsLabel: 'Tags:',
+    backlinks: 'Notes mentioning this',
   },
   til: {
     title: 'TIL (Today I Learned)',

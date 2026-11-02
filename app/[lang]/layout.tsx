@@ -60,7 +60,18 @@ export default async function RootLayout(props: {
   const dictionary = await getDictionary();
 
   return (
-    <html lang={LOCALE_META[locale].bcp47} className="h-full antialiased">
+    <html
+      lang={LOCALE_META[locale].bcp47}
+      className="h-full antialiased"
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans bg-bg text-fg">
         <SiteHeader lang={locale} dictionary={dictionary} />
         <main id="main-content" className="flex-1 w-full max-w-3xl mx-auto px-4 py-6">

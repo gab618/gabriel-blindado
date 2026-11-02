@@ -38,4 +38,4 @@ export async function getArtigos() {
 ```
 
 > [!TIP]
-> Use `cacheLife('max')` para conteúdos que só mudam quando um novo deploy do site é executado.
+> Use `cacheLife('max')` para conteúdos que só mudam quando um novo deploy do site é executado. Para orquestrar daemons e deploys no servidor, veja [[linux/systemd]].

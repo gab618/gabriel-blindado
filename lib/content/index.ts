@@ -190,3 +190,41 @@ export async function getPostsByTag(
   const posts = await getAllPosts(lang);
   return posts.filter((p) => p.tags.includes(tag));
 }
+
+/**
+ * Retorna notas que apontam para o slug atual (Backlinks)
+ */
+export async function getBacklinks(
+  lang: Locale,
+  targetSlug: string[]
+): Promise<PostMeta[]> {
+  'use cache';
+  cacheLife('max');
+
+  const targetPath = targetSlug.join('/');
+  const lastSegment = targetSlug[targetSlug.length - 1];
+  const allFiles = (
+    await Promise.all(COLLECTIONS.map((col) => discoverFiles(lang, col)))
+  ).flat();
+
+  const backlinks: PostMeta[] = [];
+
+  for (const file of allFiles) {
+    if (file.slug.join('/') === targetPath) continue;
+
+    const { meta, content } = await parseMarkdownFile(file);
+    if (process.env.NODE_ENV === 'production' && meta.draft) continue;
+
+    // Procura wikilinks [[targetPath]] ou [[lastSegment]] ou links markdown para o target
+    const mentionsTarget =
+      content.includes(`[[${targetPath}`) ||
+      content.includes(`[[${lastSegment}`) ||
+      content.includes(`/wiki/${targetPath}`);
+
+    if (mentionsTarget) {
+      backlinks.push(meta);
+    }
+  }
+
+  return backlinks;
+}
