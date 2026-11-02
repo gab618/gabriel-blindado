@@ -10,8 +10,8 @@ export const siteConfig = {
   name: 'gabrielblindado.com.br',
   author: 'Gabriel Blindado',
   url: 'https://gabrielblindado.com.br',
-  github: 'https://github.com/gabrielblindado',
-  repo: 'https://github.com/gabrielblindado/gabriel-blindado',
+  github: 'https://github.com/gab618',
+  repo: 'https://github.com/gab618/gabriel-blindado',
   license: 'CC BY-SA 4.0 / MIT',
   copyrightYear: '2026',
 } as const;
