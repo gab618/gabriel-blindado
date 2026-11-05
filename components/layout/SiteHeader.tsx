@@ -6,6 +6,7 @@ import type { Dictionary } from '@/lib/i18n/dictionaries/pt';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from '@/components/islands/ThemeToggle';
 import { QuickSearch } from '@/components/islands/QuickSearch';
+import { SonicLogo } from '@/components/ui/SonicLogo';
 
 export interface SiteHeaderProps {
   lang: Locale;
@@ -29,9 +30,12 @@ export function SiteHeader({ lang, dictionary }: SiteHeaderProps) {
           <div>
             <Link
               href={href(lang, '/')}
-              className="font-mono font-bold text-base text-fg hover:no-underline tracking-tight"
+              className="inline-flex items-center gap-2 group hover:no-underline"
             >
-              {siteConfig.name}
+              <SonicLogo className="group-hover:rotate-[-8deg] transition-transform duration-150 text-fg" />
+              <span className="font-mono font-bold text-base text-fg group-hover:underline tracking-tight">
+                {siteConfig.name}
+              </span>
             </Link>
             <p className="text-xs text-muted font-mono">{dictionary.site.subtitle}</p>
           </div>
