@@ -1,6 +1,6 @@
 # gabrielblindado.com.br
 
-Canto pessoal na web: caderno de escritos, receitas afetivas, diário de bordo e projetos pessoais. Estética limpa, minimalista e tipográfica, focada nas palavras, na tranquilidade e sem ruído de algoritmos.
+coisas aleatórias de Gabriel Blindado. Espaço pessoal na web: posts, receitas, notas rápidas e projetos pessoais. Estética limpa, minimalista e tipográfica, focada nas palavras, na tranquilidade e sem ruído de algoritmos.
 
 Construído com **Next.js 16 (App Router + Cache Components)**, **React 19**, **Tailwind CSS v4** e geração estática (SSG) de alta velocidade sem overhead de JavaScript em páginas de leitura.
 
@@ -10,14 +10,14 @@ Construído com **Next.js 16 (App Router + Cache Components)**, **React 19**, **
 
 Você **não precisa mexer em código React nem TypeScript** para publicar no site. Todo o conteúdo é gerenciado em arquivos Markdown normais na pasta `content/pt/`.
 
-### 1. Adicionar um Escrito, Ensaio ou Receita
+### 1. Adicionar um Post (Ensaio, Reflexão ou Receita)
 
-A seção de **Escritos** organiza textos mais aprofundados, reflexões sobre o ano e receitas culinárias.
+A seção de **Posts** organiza textos mais aprofundados, reflexões e receitas culinárias.
 
-- **Local:** `content/pt/escritos/<categoria>/<nome-do-arquivo>.md`
+- **Local:** `content/pt/posts/<categoria>/<nome-do-arquivo>.md`
 - **Exemplos:**
-  - `content/pt/escritos/receitas/bolo-de-cenoura.md` &rarr; `/pt/escritos/receitas/bolo-de-cenoura`
-  - `content/pt/escritos/reflexoes/sobre-desacelerar.md` &rarr; `/pt/escritos/reflexoes/sobre-desacelerar`
+  - `content/pt/posts/receitas/bolo-de-cenoura.md` &rarr; `/pt/posts/receitas/bolo-de-cenoura`
+  - `content/pt/posts/reflexoes/sobre-desacelerar.md` &rarr; `/pt/posts/reflexoes/sobre-desacelerar`
 
 #### Template:
 
@@ -53,13 +53,13 @@ Texto de introdução e história da receita...
 
 ---
 
-### 2. Adicionar uma Nota no Diário de Bordo
+### 2. Adicionar uma Nota
 
-O **Diário** serve para fragmentos curtos, observações da rotina e ideias breves.
+As **Notas** servem para fragmentos curtos, observações da rotina e ideias breves.
 
-- **Local:** `content/pt/diario/YYYY-MM-DD-<titulo-curto>.md`
-- **Exemplo:** `content/pt/diario/2026-11-04-o-silencio-da-manha.md`
-- **URL gerada:** `/pt/diario/2026-11-04-o-silencio-da-manha`
+- **Local:** `content/pt/notas/YYYY-MM-DD-<titulo-curto>.md`
+- **Exemplo:** `content/pt/notas/2026-11-04-o-silencio-da-manha.md`
+- **URL gerada:** `/pt/notas/2026-11-04-o-silencio-da-manha`
 
 #### Template:
 

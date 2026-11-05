@@ -19,15 +19,15 @@ export async function generateMetadata(props: {
   const dictionary = await getDictionary();
 
   return {
-    title: `${dictionary.diario.title} — ${siteConfig.name}`,
-    description: dictionary.diario.description,
+    title: `${dictionary.notas.title} — ${siteConfig.name}`,
+    description: dictionary.notas.description,
     alternates: {
-      canonical: `/${currentLang}/diario`,
+      canonical: `/${currentLang}/notas`,
     },
   };
 }
 
-export default async function DiarioIndexPage(props: {
+export default async function NotasIndexPage(props: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang: currentLang } = await props.params;
@@ -38,11 +38,11 @@ export default async function DiarioIndexPage(props: {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const posts = await getAllPosts(locale, 'diario');
+  const posts = await getAllPosts(locale, 'notas');
 
   const breadcrumbs = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.diario },
+    { label: dictionary.nav.notas },
   ];
 
   return (
@@ -51,29 +51,29 @@ export default async function DiarioIndexPage(props: {
 
       <header className="border-b border-border pb-4">
         <h1 className="font-mono text-2xl font-bold tracking-tight text-fg">
-          {dictionary.diario.title}
+          {dictionary.notas.title}
         </h1>
         <p className="text-muted text-sm mt-1 font-mono">
-          {dictionary.diario.description}
+          {dictionary.notas.description}
         </p>
       </header>
 
       {/* Tabela de registros */}
       <section className="space-y-4">
         <div className="flex items-center justify-between font-mono text-xs text-muted border-b border-border pb-1">
-          <span>{dictionary.diario.allEntries}</span>
+          <span>{dictionary.notas.allEntries}</span>
           <span>{posts.length} notas</span>
         </div>
 
         {posts.length === 0 ? (
-          <p className="font-mono text-sm text-muted">{dictionary.diario.empty}</p>
+          <p className="font-mono text-sm text-muted">{dictionary.notas.empty}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-28">{dictionary.diario.tableHeaderDate}</TableHead>
-                <TableHead>{dictionary.diario.tableHeaderTitle}</TableHead>
-                <TableHead className="hidden sm:table-cell">{dictionary.diario.tableHeaderTags}</TableHead>
+                <TableHead className="w-28">{dictionary.notas.tableHeaderDate}</TableHead>
+                <TableHead>{dictionary.notas.tableHeaderTitle}</TableHead>
+                <TableHead className="hidden sm:table-cell">{dictionary.notas.tableHeaderTags}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

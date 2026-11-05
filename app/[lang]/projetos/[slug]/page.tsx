@@ -111,7 +111,7 @@ export default async function ProjetoDetailPage(props: {
             rel="noopener noreferrer"
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.escritos.editOnGithub} ↗
+            {dictionary.posts.editOnGithub} ↗
           </a>
         </div>
       </footer>

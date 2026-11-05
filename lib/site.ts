@@ -2,7 +2,7 @@ import type { Dictionary } from './i18n/dictionaries/pt';
 
 export interface NavRoute {
   labelKey: keyof Dictionary['nav'];
-  path: '/' | '/escritos' | '/diario' | '/projetos' | '/tags';
+  path: '/' | '/posts' | '/notas' | '/projetos' | '/tags';
   match?: 'exact' | 'prefix';
 }
 
@@ -18,8 +18,8 @@ export const siteConfig = {
 
 export const NAV_ROUTES: readonly NavRoute[] = [
   { labelKey: 'home', path: '/', match: 'exact' },
-  { labelKey: 'escritos', path: '/escritos', match: 'prefix' },
-  { labelKey: 'diario', path: '/diario', match: 'prefix' },
+  { labelKey: 'posts', path: '/posts', match: 'prefix' },
+  { labelKey: 'notas', path: '/notas', match: 'prefix' },
   { labelKey: 'projetos', path: '/projetos', match: 'prefix' },
   { labelKey: 'tags', path: '/tags', match: 'prefix' },
 ] as const;

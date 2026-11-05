@@ -7,8 +7,8 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     files: [
-      "app/[lang]/escritos/**",
-      "app/[lang]/diario/**",
+      "app/[lang]/posts/**",
+      "app/[lang]/notas/**",
       "app/[lang]/projetos/**",
       "app/[lang]/tags/**",
       "lib/content/**",

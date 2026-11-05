@@ -63,7 +63,7 @@ export function remarkWikilinks(options: RemarkWikilinksOptions) {
 
               newChildren.push({
                 type: 'link',
-                url: `/${lang}/escritos/${targetSlug}`,
+                url: `/${lang}/posts/${targetSlug}`,
                 children: [{ type: 'text', value: label }],
               });
 

@@ -14,6 +14,26 @@ const nextConfig: NextConfig = {
         destination: "/pt",
         permanent: true,
       },
+      {
+        source: "/:lang/escritos",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/escritos/:path*",
+        destination: "/:lang/posts/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:lang/diario",
+        destination: "/:lang/notas",
+        permanent: true,
+      },
+      {
+        source: "/:lang/diario/:path*",
+        destination: "/:lang/notas/:path*",
+        permanent: true,
+      },
     ];
   },
   turbopack: {

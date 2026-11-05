@@ -14,8 +14,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 1. Rotas estáticas principais
     const coreRoutes = [
       { path: `/${locale}`, priority: 1.0, freq: 'daily' as const },
-      { path: `/${locale}/escritos`, priority: 0.9, freq: 'daily' as const },
-      { path: `/${locale}/diario`, priority: 0.8, freq: 'daily' as const },
+      { path: `/${locale}/posts`, priority: 0.9, freq: 'daily' as const },
+      { path: `/${locale}/notas`, priority: 0.8, freq: 'daily' as const },
       { path: `/${locale}/projetos`, priority: 0.8, freq: 'weekly' as const },
       { path: `/${locale}/tags`, priority: 0.7, freq: 'weekly' as const },
     ];
@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    // 2. Todos os posts (Escritos, Diário e Projetos)
+    // 2. Todos os posts (Posts, Notas e Projetos)
     const allPosts = await getAllPosts(locale);
     for (const post of allPosts) {
       const languages: Record<string, string> = {};
@@ -40,8 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${baseUrl}${post.href}`,
         lastModified: post.updated || post.date,
-        changeFrequency: post.collection === 'diario' ? 'monthly' : 'weekly',
-        priority: post.collection === 'escritos' ? 0.8 : 0.7,
+        changeFrequency: post.collection === 'notas' ? 'monthly' : 'weekly',
+        priority: post.collection === 'posts' ? 0.8 : 0.7,
         alternates: Object.keys(languages).length > 0 ? { languages } : undefined,
       });
     }

@@ -16,8 +16,8 @@ describe('Search Index JSON Endpoint', () => {
     expect(data.length).toBeGreaterThan(0);
 
     const collections = new Set(data.map((item) => item.collection));
-    expect(collections.has('escritos')).toBe(true);
-    expect(collections.has('diario')).toBe(true);
+    expect(collections.has('posts')).toBe(true);
+    expect(collections.has('notas')).toBe(true);
     expect(collections.has('projetos')).toBe(true);
 
     // Verify properties on items

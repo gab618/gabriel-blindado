@@ -18,15 +18,15 @@ export async function generateMetadata(props: {
   const dictionary = await getDictionary();
 
   return {
-    title: `${dictionary.escritos.title} — ${siteConfig.name}`,
-    description: dictionary.escritos.description,
+    title: `${dictionary.posts.title} — ${siteConfig.name}`,
+    description: dictionary.posts.description,
     alternates: {
-      canonical: `/${currentLang}/escritos`,
+      canonical: `/${currentLang}/posts`,
     },
   };
 }
 
-export default async function EscritosIndexPage(props: {
+export default async function PostsIndexPage(props: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang: currentLang } = await props.params;
@@ -37,14 +37,14 @@ export default async function EscritosIndexPage(props: {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const posts = await getAllPosts(locale, 'escritos');
+  const posts = await getAllPosts(locale, 'posts');
 
   const breadcrumbs = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.escritos },
+    { label: dictionary.nav.posts },
   ];
 
-  // Agrupa os textos por categoria (primeiro segmento do slug)
+  // Agrupa os posts por categoria (primeiro segmento do slug)
   const groupedByCategory = new Map<string, typeof posts>();
   for (const post of posts) {
     const category = post.slug.length > 1 ? post.slug[0] : 'geral';
@@ -59,10 +59,10 @@ export default async function EscritosIndexPage(props: {
 
       <header className="border-b border-border pb-4">
         <h1 className="font-mono text-2xl font-bold tracking-tight text-fg">
-          {dictionary.escritos.title}
+          {dictionary.posts.title}
         </h1>
         <p className="text-muted text-sm mt-1 font-mono">
-          {dictionary.escritos.description}
+          {dictionary.posts.description}
         </p>
       </header>
 
@@ -98,15 +98,18 @@ export default async function EscritosIndexPage(props: {
                     </p>
                   )}
 
-                  <div className="pt-1 flex items-center justify-between text-xs font-mono text-muted">
+                  <div className="pt-1">
                     <TagList tags={post.tags} lang={locale} />
-                    <span>{dictionary.escritos.readingTime.replace('{minutes}', String(post.readingMinutes))}</span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ))}
+
+        {posts.length === 0 && (
+          <p className="font-mono text-sm text-muted">{dictionary.posts.emptyCategory}</p>
+        )}
       </section>
     </div>
   );

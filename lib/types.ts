@@ -2,7 +2,7 @@ import type React from 'react';
 import type { Locale } from './i18n/config';
 import type { PostFrontmatter } from './content/schema';
 
-export type Collection = 'escritos' | 'diario' | 'projetos';
+export type Collection = 'posts' | 'notas' | 'projetos';
 
 export interface PostMeta extends PostFrontmatter {
   lang: Locale;

@@ -14,7 +14,7 @@ export async function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
 
   for (const lang of ACTIVE_LOCALES) {
-    const posts = await getAllPosts(lang, 'diario');
+    const posts = await getAllPosts(lang, 'notas');
     for (const post of posts) {
       if (post.slug.length === 1) {
         params.push({ lang, slug: post.slug[0] });
@@ -39,7 +39,7 @@ export async function generateMetadata(props: {
   }
 
   const locale = currentLang as Locale;
-  const post = await getPostBySlug(locale, 'diario', [slug]);
+  const post = await getPostBySlug(locale, 'notas', [slug]);
 
   if (!post) {
     return {};
@@ -49,12 +49,12 @@ export async function generateMetadata(props: {
     title: `${post.title} — ${siteConfig.name}`,
     description: post.description || post.title,
     alternates: {
-      canonical: `/${locale}/diario/${slug}`,
+      canonical: `/${locale}/notas/${slug}`,
     },
   };
 }
 
-export default async function DiarioDetailPage(props: {
+export default async function NotaDetailPage(props: {
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang: currentLang, slug } = await props.params;
@@ -65,7 +65,7 @@ export default async function DiarioDetailPage(props: {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const post = await getPostBySlug(locale, 'diario', [slug]);
+  const post = await getPostBySlug(locale, 'notas', [slug]);
 
   if (!post) {
     notFound();
@@ -73,7 +73,7 @@ export default async function DiarioDetailPage(props: {
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.diario, href: href(locale, '/diario') },
+    { label: dictionary.nav.notas, href: href(locale, '/notas') },
     { label: post.title },
   ];
 
@@ -97,10 +97,10 @@ export default async function DiarioDetailPage(props: {
       <footer className="border-t border-border pt-4 mt-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
         <div>
           <Link
-            href={href(locale, '/diario') as Route}
+            href={href(locale, '/notas') as Route}
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            &larr; {dictionary.diario.backToDiario}
+            &larr; {dictionary.notas.backToNotas}
           </Link>
         </div>
 
@@ -111,7 +111,7 @@ export default async function DiarioDetailPage(props: {
             rel="noopener noreferrer"
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.escritos.editOnGithub} ↗
+            {dictionary.posts.editOnGithub} ↗
           </a>
         </div>
       </footer>

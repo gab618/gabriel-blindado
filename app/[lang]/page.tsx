@@ -71,33 +71,33 @@ export default async function HomePage(props: {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
           <Link
-            href={href(locale, '/escritos') as Route}
+            href={href(locale, '/posts') as Route}
             className="border border-border p-3.5 bg-bg hover:border-link transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="font-bold text-sm text-link group-hover:underline">
-                [Escritos & Receitas]
+                [Posts]
               </div>
               <p className="text-muted mt-1 font-sans text-xs">
-                {dictionary.home.escritosDesc}
+                {dictionary.home.postsDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Abrir caderno</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Ver posts</span>
           </Link>
 
           <Link
-            href={href(locale, '/diario') as Route}
+            href={href(locale, '/notas') as Route}
             className="border border-border p-3.5 bg-bg hover:border-link transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="font-bold text-sm text-link group-hover:underline">
-                [Diário de Bordo]
+                [Notas]
               </div>
               <p className="text-muted mt-1 font-sans text-xs">
-                {dictionary.home.diarioDesc}
+                {dictionary.home.notasDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Ver notas diárias</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Ver notas</span>
           </Link>
 
           <Link
@@ -139,7 +139,7 @@ export default async function HomePage(props: {
             [{dictionary.home.recentUpdates}]
           </span>
           <Link
-            href={href(locale, '/escritos') as Route}
+            href={href(locale, '/posts') as Route}
             className="text-link hover:underline"
           >
             {dictionary.home.viewAllNotes} &rarr;
@@ -147,7 +147,7 @@ export default async function HomePage(props: {
         </div>
 
         {recentPosts.length === 0 ? (
-          <p className="text-muted text-sm font-mono">{dictionary.diario.empty}</p>
+          <p className="text-muted text-sm font-mono">{dictionary.notas.empty}</p>
         ) : (
           <Table>
             <TableHeader>
@@ -161,10 +161,10 @@ export default async function HomePage(props: {
               {recentPosts.map((post) => {
                 const dateStr = formatDate(locale, post.date);
                 const collectionBadge =
-                  post.collection === 'escritos'
-                    ? 'Escritos'
-                    : post.collection === 'diario'
-                      ? 'Diário'
+                  post.collection === 'posts'
+                    ? 'Posts'
+                    : post.collection === 'notas'
+                      ? 'Notas'
                       : 'Projetos';
 
                 return (

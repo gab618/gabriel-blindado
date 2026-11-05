@@ -15,7 +15,7 @@ export async function generateStaticParams() {
   const params: { lang: string; slug: string[] }[] = [];
 
   for (const lang of ACTIVE_LOCALES) {
-    const posts = await getAllPosts(lang, 'escritos');
+    const posts = await getAllPosts(lang, 'posts');
     for (const post of posts) {
       if (post.slug.length > 0) {
         params.push({ lang, slug: post.slug });
@@ -41,7 +41,7 @@ export async function generateMetadata(props: {
   }
 
   const locale = currentLang as Locale;
-  const post = await getPostBySlug(locale, 'escritos', slug);
+  const post = await getPostBySlug(locale, 'posts', slug);
 
   if (!post) {
     return {};
@@ -57,7 +57,7 @@ export async function generateMetadata(props: {
     title: `${post.title} — ${siteConfig.name}`,
     description: post.description || post.title,
     alternates: {
-      canonical: `/${locale}/escritos/${slug.join('/')}`,
+      canonical: `/${locale}/posts/${slug.join('/')}`,
       languages: Object.keys(languages).length > 0 ? languages : undefined,
     },
     openGraph: {
@@ -71,7 +71,7 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function EscritoDetailPage(props: {
+export default async function PostDetailPage(props: {
   params: Promise<{ lang: string; slug: string[] }>;
 }) {
   const { lang: currentLang, slug } = await props.params;
@@ -86,7 +86,7 @@ export default async function EscritoDetailPage(props: {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const post = await getPostBySlug(locale, 'escritos', slug);
+  const post = await getPostBySlug(locale, 'posts', slug);
 
   if (!post) {
     notFound();
@@ -97,7 +97,7 @@ export default async function EscritoDetailPage(props: {
   // Monta hierarquia de breadcrumbs
   const breadcrumbs: BreadcrumbItem[] = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.escritos, href: href(locale, '/escritos') },
+    { label: dictionary.nav.posts, href: href(locale, '/posts') },
   ];
 
   if (slug.length > 1) {
@@ -105,7 +105,7 @@ export default async function EscritoDetailPage(props: {
       const catSlug = slug.slice(0, i + 1);
       breadcrumbs.push({
         label: slug[i],
-        href: href(locale, `/escritos/${catSlug.join('/')}`),
+        href: href(locale, `/posts/${catSlug.join('/')}`),
       });
     }
   }
@@ -134,7 +134,7 @@ export default async function EscritoDetailPage(props: {
 
       {/* Índice de seções (TOC) */}
       {post.toc.length > 0 && (
-        <Toc items={post.toc} title={dictionary.escritos.tableOfContents} />
+        <Toc items={post.toc} title={dictionary.posts.tableOfContents} />
       )}
 
       {/* Corpo do texto */}
@@ -146,7 +146,7 @@ export default async function EscritoDetailPage(props: {
       {backlinks.length > 0 && (
         <section className="border border-border p-4 bg-code-bg/30 space-y-2 mt-8">
           <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-fg">
-            # {dictionary.escritos.backlinks} ({backlinks.length})
+            # {dictionary.posts.backlinks} ({backlinks.length})
           </h2>
           <ul className="space-y-1 font-mono text-xs">
             {backlinks.map((bl) => (
@@ -166,10 +166,10 @@ export default async function EscritoDetailPage(props: {
       <footer className="border-t border-border pt-4 mt-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
         <div>
           <Link
-            href={href(locale, '/escritos') as Route}
+            href={href(locale, '/posts') as Route}
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            &larr; {dictionary.escritos.backToEscritos}
+            &larr; {dictionary.posts.backToPosts}
           </Link>
         </div>
 
@@ -180,7 +180,7 @@ export default async function EscritoDetailPage(props: {
             rel="noopener noreferrer"
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.escritos.editOnGithub} ↗
+            {dictionary.posts.editOnGithub} ↗
           </a>
         </div>
       </footer>

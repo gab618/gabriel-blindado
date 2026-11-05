@@ -5,7 +5,7 @@ import { lang } from 'next/root-params';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/i18n/config';
 import { href } from '@/lib/i18n/href';
 
-export default async function EscritosNotFound() {
+export default async function PostsNotFound() {
   const currentLang = await lang();
   const locale: Locale = isLocale(currentLang) ? currentLang : DEFAULT_LOCALE;
   const dictionary = await getDictionary();
@@ -16,14 +16,14 @@ export default async function EscritosNotFound() {
         404 — {dictionary.notFound.title}
       </h1>
       <p className="text-sm text-muted">
-        O texto ou receita que você procurou não existe ou foi movido.
+        O post que você procurou não existe ou foi movido.
       </p>
       <div>
         <Link
-          href={href(locale, '/escritos') as Route}
+          href={href(locale, '/posts') as Route}
           className="text-link hover:underline text-xs"
         >
-          &larr; {dictionary.escritos.backToEscritos}
+          &larr; {dictionary.posts.backToPosts}
         </Link>
       </div>
     </div>

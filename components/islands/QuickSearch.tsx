@@ -10,7 +10,7 @@ import type { Dictionary } from '@/lib/i18n/dictionaries/pt';
 export interface SearchIndexItem {
   title: string;
   href: string;
-  collection: 'escritos' | 'diario' | 'projetos';
+  collection: 'posts' | 'notas' | 'projetos';
   tags: string[];
   description: string;
 }

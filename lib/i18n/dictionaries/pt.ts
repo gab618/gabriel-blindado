@@ -8,12 +8,12 @@ type DeepString<T> = {
 
 export const pt = {
   meta: {
-    title: 'Gabriel Blindado — Caderno, Receitas & Projetos',
-    description: 'Espaço pessoal para registrar pensamentos, receitas, reflexões e projetos.',
+    title: 'Gabriel Blindado — coisas aleatórias de Gabriel Blindado',
+    description: 'coisas aleatórias de Gabriel Blindado',
   },
   site: {
     title: 'gabrielblindado.com.br',
-    subtitle: 'Caderno pessoal, receitas, diário e projetos',
+    subtitle: 'coisas aleatórias de Gabriel Blindado',
     sourceCode: 'Código-fonte',
     rss: 'Feed RSS',
     license: 'Licença CC BY-SA 4.0',
@@ -27,8 +27,8 @@ export const pt = {
   },
   nav: {
     home: 'Início',
-    escritos: 'Escritos',
-    diario: 'Diário',
+    posts: 'Posts',
+    notas: 'Notas',
     projetos: 'Projetos',
     tags: 'Tags',
   },
@@ -42,7 +42,7 @@ export const pt = {
     toggleTheme: 'Alternar tema (auto/escuro/claro)',
   },
   search: {
-    placeholder: 'Buscar textos, receitas e projetos (Ctrl+K)...',
+    placeholder: 'Buscar posts, notas e projetos (Ctrl+K)...',
     openSearch: 'Busca',
     noResults: 'Nenhum resultado encontrado.',
     close: 'Fechar [Esc]',
@@ -50,12 +50,12 @@ export const pt = {
   },
   home: {
     heroGreeting: 'Olá, sou o Gabriel.',
-    heroBio: 'Bem-vindo ao meu canto calmo na web. Este site é um caderno pessoal aberto onde registro pensamentos, receitas que gosto de fazer, reflexões sobre o ano e projetos que coloco no mundo.',
+    heroBio: 'Bem-vindo ao meu cantinho na web. Eu sou o pai da Violeta, escrevo códigos e gosto do sonic. Fique a vontade :)',
     recentUpdates: 'Últimas Publicações & Notas',
-    viewAllNotes: 'Ver todo o arquivo',
+    viewAllNotes: 'Ver todos os posts',
     featuredSections: 'Seções',
-    escritosDesc: 'Ensaios, reflexões sobre a vida e receitas culinárias afetivas.',
-    diarioDesc: 'Fragmentos de pensamentos, observações da rotina e notas curtas.',
+    postsDesc: 'Textos, pensamentos e receitas.',
+    notasDesc: 'Notas rápidas e ideias do dia a dia.',
     projetosDesc: 'Iniciativas, criações pessoais e projetos que tirei do papel.',
     tagsDesc: 'Navegação por temas e tópicos.',
   },
@@ -71,9 +71,9 @@ export const pt = {
     description: 'A página solicitada não foi encontrada.',
     returnHome: 'Voltar ao início',
   },
-  escritos: {
-    title: 'Escritos & Receitas',
-    description: 'Caderno de reflexões sobre a vida, ensaios e receitas culinárias.',
+  posts: {
+    title: 'Posts',
+    description: 'Textos, pensamentos e receitas.',
     categories: 'Categorias',
     tableOfContents: 'Neste texto',
     readingTime: '{minutes} min de leitura',
@@ -86,22 +86,22 @@ export const pt = {
       evergreen: '🌲 Concluído',
     },
     editOnGithub: 'Ver histórico no GitHub',
-    backToEscritos: 'Voltar aos Escritos',
-    emptyCategory: 'Nenhum texto nesta categoria ainda.',
-    allDocuments: 'Todos os Escritos',
+    backToPosts: 'Voltar aos Posts',
+    emptyCategory: 'Nenhum post nesta categoria ainda.',
+    allDocuments: 'Todos os Posts',
     tagsLabel: 'Tags:',
-    backlinks: 'Notas que mencionam esta',
+    backlinks: 'Notas que mencionam este post',
   },
-  diario: {
-    title: 'Diário de Bordo',
-    description: 'Notas breves, fragmentos de ideias e observações do cotidiano.',
-    backToDiario: 'Voltar ao Diário',
+  notas: {
+    title: 'Notas',
+    description: 'Notas breves, fragmentos de ideias e observações do dia a dia.',
+    backToNotas: 'Voltar às Notas',
     tableHeaderDate: 'Data',
-    tableHeaderTitle: 'Nota / Registro',
+    tableHeaderTitle: 'Nota',
     tableHeaderTags: 'Tags',
     tableHeaderStatus: 'Status',
     empty: 'Nenhuma nota registrada ainda.',
-    allEntries: 'Todas as Notas do Diário',
+    allEntries: 'Todas as Notas',
   },
   projetos: {
     title: 'Projetos Pessoais',
@@ -116,13 +116,13 @@ export const pt = {
   },
   tags: {
     title: 'Navegação por Tags',
-    description: 'Índice temático de todos os textos, receitas e notas.',
+    description: 'Índice temático de todos os posts, receitas e notas.',
     taggedWith: 'Publicações com a tag',
     backToTags: 'Voltar ao índice de Tags',
     notesCount: '{count} notas',
     empty: 'Nenhuma tag cadastrada.',
     tableHeaderCollection: 'Coleção',
-    tableHeaderTitle: 'Documento',
+    tableHeaderTitle: 'Título',
     tableHeaderDate: 'Data',
   },
   styleguide: {
@@ -135,6 +135,11 @@ export const pt = {
     fieldsSection: 'Controles de Formulário & Campos',
     kbdSection: 'Atalhos de Teclado & Teclas',
     codeSection: 'Código Inline & Blocos',
+  },
+  pagination: {
+    previous: 'Anterior',
+    next: 'Próxima',
+    pageOf: 'Página {current} de {total}',
   },
 } as const;
 

@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { getAllPosts, getPostBySlug } from '../index';
 
-describe('Escritos Subsystem — Content Queries and Integration', () => {
-  it('loads all escritos for pt locale', async () => {
-    const posts = await getAllPosts('pt', 'escritos');
+describe('Posts Subsystem — Content Queries and Integration', () => {
+  it('loads all posts for pt locale', async () => {
+    const posts = await getAllPosts('pt', 'posts');
     expect(posts.length).toBeGreaterThanOrEqual(2);
 
     const receitaPost = posts.find((p) => p.slug.join('/') === 'receitas/bolo-de-cenoura');
@@ -17,8 +17,8 @@ describe('Escritos Subsystem — Content Queries and Integration', () => {
     expect(reflexaoPost?.title).toContain('Desacelerar');
   });
 
-  it('fetches a single escrito by nested slug with full body and TOC', async () => {
-    const post = await getPostBySlug('pt', 'escritos', ['receitas', 'bolo-de-cenoura']);
+  it('fetches a single post by nested slug with full body and TOC', async () => {
+    const post = await getPostBySlug('pt', 'posts', ['receitas', 'bolo-de-cenoura']);
 
     expect(post).not.toBeNull();
     if (post) {
@@ -30,8 +30,8 @@ describe('Escritos Subsystem — Content Queries and Integration', () => {
     }
   });
 
-  it('returns null when escrito slug does not exist', async () => {
-    const post = await getPostBySlug('pt', 'escritos', ['nao-existe', 'invalido']);
+  it('returns null when post slug does not exist', async () => {
+    const post = await getPostBySlug('pt', 'posts', ['nao-existe', 'invalido']);
     expect(post).toBeNull();
   });
 });

@@ -7,12 +7,12 @@ import { getAllPosts, getPostBySlug, getAllTags } from '../index';
 
 describe('Content Layer — Parser and Schema Validation', () => {
   const dummyFile: DiscoveredFile = {
-    absolutePath: '/dummy/content/pt/escritos/reflexoes/sobre-desacelerar.md',
-    sourcePath: 'content/pt/escritos/reflexoes/sobre-desacelerar.md',
+    absolutePath: '/dummy/content/pt/posts/reflexoes/sobre-desacelerar.md',
+    sourcePath: 'content/pt/posts/reflexoes/sobre-desacelerar.md',
     lang: 'pt',
-    collection: 'escritos',
+    collection: 'posts',
     slug: ['reflexoes', 'sobre-desacelerar'],
-    defaultTranslationKey: 'escritos/reflexoes/sobre-desacelerar',
+    defaultTranslationKey: 'posts/reflexoes/sobre-desacelerar',
   };
 
   it('correctly parses and validates valid frontmatter', () => {
@@ -34,8 +34,8 @@ Texto de exemplo com várias palavras para cálculo de leitura.`;
     expect(meta.description).toBe('Reflexão pessoal');
     expect(meta.tags).toEqual(['reflexoes', 'vida']);
     expect(meta.status).toBe('evergreen');
-    expect(meta.translationKey).toBe('escritos/reflexoes/sobre-desacelerar');
-    expect(meta.href).toBe('/pt/escritos/reflexoes/sobre-desacelerar');
+    expect(meta.translationKey).toBe('posts/reflexoes/sobre-desacelerar');
+    expect(meta.href).toBe('/pt/posts/reflexoes/sobre-desacelerar');
     expect(meta.readingMinutes).toBeGreaterThanOrEqual(1);
     expect(content.trim()).toBe('# Conteúdo principal\nTexto de exemplo com várias palavras para cálculo de leitura.');
   });
@@ -52,7 +52,7 @@ Conteúdo`;
       parseMarkdownString(raw, dummyFile);
     } catch (err) {
       const cErr = err as ContentError;
-      expect(cErr.filePath).toBe('content/pt/escritos/reflexoes/sobre-desacelerar.md');
+      expect(cErr.filePath).toBe('content/pt/posts/reflexoes/sobre-desacelerar.md');
       expect(cErr.issues?.some((i) => i.path === 'title')).toBe(true);
     }
   });
@@ -137,7 +137,7 @@ Consulte a receita em [[receitas/bolo-de-cenoura|Bolo de Cenoura]].
 
     const { hast } = await compileMarkdown(source, 'pt');
     const hastJson = JSON.stringify(hast);
-    expect(hastJson).toContain('href":"/pt/escritos/receitas/bolo-de-cenoura');
+    expect(hastJson).toContain('href":"/pt/posts/receitas/bolo-de-cenoura');
     expect(hastJson).toContain('Bolo de Cenoura');
   });
 });
@@ -147,15 +147,15 @@ describe('Content Layer — Real Content Discovery & Queries', () => {
     const posts = await getAllPosts('pt');
     expect(posts.length).toBeGreaterThanOrEqual(3);
 
-    const escritoPost = posts.find((p) => p.collection === 'escritos');
-    const diarioPost = posts.find((p) => p.collection === 'diario');
+    const postItem = posts.find((p) => p.collection === 'posts');
+    const notaItem = posts.find((p) => p.collection === 'notas');
 
-    expect(escritoPost).toBeDefined();
-    expect(diarioPost).toBeDefined();
+    expect(postItem).toBeDefined();
+    expect(notaItem).toBeDefined();
   });
 
   it('compiles full post via getPostBySlug', async () => {
-    const post = await getPostBySlug('pt', 'escritos', ['receitas', 'bolo-de-cenoura']);
+    const post = await getPostBySlug('pt', 'posts', ['receitas', 'bolo-de-cenoura']);
     expect(post).not.toBeNull();
     if (post) {
       expect(post.title).toContain('Bolo de Cenoura');

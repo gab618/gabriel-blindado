@@ -92,10 +92,10 @@ export default async function TagDetailsPage(props: TagDetailsPageProps) {
             {posts.map((post) => {
               const dateStr = formatDate(locale, post.date);
               const collectionLabel =
-                post.collection === 'escritos'
-                  ? 'Escritos'
-                  : post.collection === 'diario'
-                    ? 'Diário'
+                post.collection === 'posts'
+                  ? 'Posts'
+                  : post.collection === 'notas'
+                    ? 'Notas'
                     : 'Projetos';
 
               return (
