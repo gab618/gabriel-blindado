@@ -8,7 +8,7 @@ export interface SonicLogoProps {
 /**
  * Logotipo pixel art colorido do Sonic the Hedgehog.
  */
-export function SonicLogo({ className = 'w-5 h-5', size = 20 }: SonicLogoProps) {
+export function SonicLogo({ className = 'w-6 h-6', size = 24 }: SonicLogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2005/svg"

@@ -32,7 +32,7 @@ export function SiteHeader({ lang, dictionary }: SiteHeaderProps) {
               href={href(lang, '/')}
               className="inline-flex items-center gap-2 group hover:no-underline"
             >
-              <SonicLogo className="w-5 h-5 group-hover:rotate-[360deg] transition-transform duration-500 ease-out" />
+              <SonicLogo className="w-6 h-6 group-hover:rotate-[360deg] transition-transform duration-500 ease-out" />
               <span className="font-mono font-bold text-base text-fg group-hover:underline tracking-tight">
                 {siteConfig.name}
               </span>
