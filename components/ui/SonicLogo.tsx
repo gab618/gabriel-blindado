@@ -6,70 +6,81 @@ export interface SonicLogoProps {
 }
 
 /**
- * Logotipo minimalista em pixel art monocromático do Sonic (perfil clássico)
- * Utiliza currentColor para se adaptar automaticamente ao tema claro e escuro.
+ * Logotipo pixel art colorido do Sonic the Hedgehog.
  */
 export function SonicLogo({ className = 'w-5 h-5', size = 20 }: SonicLogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2005/svg"
-      viewBox="0 0 24 24"
+      viewBox="0 0 32 32"
       width={size}
       height={size}
       className={`inline-block shrink-0 ${className}`}
-      fill="currentColor"
       shapeRendering="crispEdges"
       aria-label="Sonic the Hedgehog"
       role="img"
     >
       <title>Sonic</title>
-      {/* Orelha */}
-      <rect x="12" y="2" width="2" height="1" />
-      <rect x="11" y="3" width="4" height="1" />
-      <rect x="10" y="4" width="2" height="2" />
-      <rect x="14" y="4" width="2" height="2" />
-
-      {/* Cabeça superior e espinho de cima */}
-      <rect x="9" y="5" width="2" height="2" />
-      <rect x="11" y="5" width="3" height="1" />
-      <rect x="6" y="6" width="3" height="2" />
-      <rect x="15" y="5" width="3" height="2" />
-      <rect x="16" y="7" width="2" height="2" />
-
-      {/* Espinho superior (ponta para a esquerda) */}
-      <rect x="2" y="7" width="4" height="2" />
-      <rect x="1" y="8" width="5" height="2" />
-      <rect x="0" y="9" width="3" height="2" />
-
-      {/* Testa e Olho */}
-      <rect x="6" y="8" width="10" height="2" />
-      <rect x="18" y="8" width="3" height="2" />
-      <rect x="16" y="9" width="1" height="2" />
-      <rect x="19" y="9" width="1" height="2" />
-
-      {/* Espinho do meio (ponta para a esquerda) */}
-      <rect x="4" y="10" width="12" height="2" />
-      <rect x="2" y="11" width="3" height="2" />
-      <rect x="1" y="12" width="3" height="2" />
-      <rect x="0" y="13" width="3" height="2" />
-
-      {/* Focinho, Nariz e Sorriso */}
-      <rect x="16" y="11" width="5" height="2" />
-      <rect x="21" y="12" width="2" height="1" />
-      <rect x="16" y="13" width="5" height="2" />
-      <rect x="15" y="14" width="5" height="2" />
-
-      {/* Espinho inferior (ponta para a esquerda) */}
-      <rect x="4" y="14" width="11" height="2" />
-      <rect x="2" y="16" width="4" height="2" />
-      <rect x="1" y="17" width="3" height="2" />
-      <rect x="0" y="18" width="3" height="2" />
-
-      {/* Queixo e Pescoço */}
-      <rect x="14" y="16" width="4" height="2" />
-      <rect x="5" y="16" width="9" height="2" />
-      <rect x="4" y="18" width="10" height="2" />
-      <rect x="6" y="20" width="6" height="2" />
+      <path
+        fill="#064678"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M24.997,6.997h4v4l-2,2 l-4-4L24.997,6.997z"
+      />
+      <path
+        fill="#26659f"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14.997,24.997h-2v2h-4 v2h-6v-2h2v-2h2v-4h2v-2h-8v-2h2v-2h2v-2h2v-2h2v-4h-2v-2h-2v-2h16v2h2v2h2v2h2v2h2v6l-3,4h-7L14.997,24.997z"
+      />
+      <path
+        fill="#f9c292"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M24.997,22.997v2h-2v2 h-6v-2h-2v-2h-2v-2h2v-2l1-1h3v2h9L24.997,22.997z"
+      />
+      <path
+        fill="#e6e5e5"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14.997,18.997v-4h2v-4 h4v2h2v6h2l1-1l-1-1v-2h2v2h2v4l-2,1l-2-1h-8v-2H14.997z"
+      />
+      <path
+        fill="#706d67"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.996,14.999v3.999 h2.001v-3.999H18.996z"
+      />
+      <path
+        fill="#706d67"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M24.996,16.999v1.999 h2.001v-1.999H24.996z"
+      />
+      <path
+        fill="#706d67"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M24.997,20.999v1.999 h3.999v-1.999H24.997z"
+      />
+      <path
+        fill="#706d67"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16.997,22.999v1.999 h3.999v-1.999H16.997z"
+      />
+      <path
+        fill="#706d67"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14.996,20.999v1.999 h2.001v-1.999H14.996z"
+      />
+      <path
+        fill="#f9c292"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.997,8.997v-4h4v2h-2 v2H12.997z"
+      />
     </svg>
   );
 }
