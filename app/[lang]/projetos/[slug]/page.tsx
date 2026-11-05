@@ -7,51 +7,56 @@ import { getDictionary } from '@/lib/i18n/get-dictionary';
 import { getAllPosts, getPostBySlug } from '@/lib/content';
 import { Breadcrumbs, type BreadcrumbItem } from '@/components/layout/Breadcrumbs';
 import { PostMetaLine } from '@/components/content/PostMetaLine';
-import { Toc } from '@/components/content/Toc';
 import { href } from '@/lib/i18n/href';
 import { siteConfig } from '@/lib/site';
 
-interface TilPostPageProps {
-  params: Promise<{
-    lang: string;
-    slug: string;
-  }>;
-}
-
-/**
- * Pré-renderiza todos os registros do TIL no build (SSG)
- */
 export async function generateStaticParams() {
-  const posts = await getAllPosts('pt', 'til');
+  const params: { lang: string; slug: string }[] = [];
 
-  return posts.map((post) => ({
-    slug: post.slug.join('/'),
-  }));
-}
-
-export async function generateMetadata(props: TilPostPageProps): Promise<Metadata> {
-  const { lang: currentLang, slug } = await props.params;
-
-  if (!isLocale(currentLang)) {
-    return { title: 'Not Found' };
+  for (const lang of ACTIVE_LOCALES) {
+    const posts = await getAllPosts(lang, 'projetos');
+    for (const post of posts) {
+      if (post.slug.length === 1) {
+        params.push({ lang, slug: post.slug[0] });
+      }
+    }
   }
 
-  const post = await getPostBySlug(currentLang as Locale, 'til', [slug]);
+  if (params.length === 0) {
+    return [{ lang: 'pt', slug: 'meu-canto-na-web' }];
+  }
+
+  return params;
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ lang: string; slug: string }>;
+}): Promise<Metadata> {
+  const { lang: currentLang, slug } = await props.params;
+
+  if (!isLocale(currentLang) || !slug) {
+    return {};
+  }
+
+  const locale = currentLang as Locale;
+  const post = await getPostBySlug(locale, 'projetos', [slug]);
+
   if (!post) {
-    return { title: 'Not Found' };
+    return {};
   }
 
   return {
-    title: `${post.title} — TIL | ${siteConfig.name}`,
+    title: `${post.title} — ${siteConfig.name}`,
     description: post.description || post.title,
     alternates: {
-      canonical: post.href,
-      languages: post.translations,
+      canonical: `/${locale}/projetos/${slug}`,
     },
   };
 }
 
-export default async function TilPostPage(props: TilPostPageProps) {
+export default async function ProjetoDetailPage(props: {
+  params: Promise<{ lang: string; slug: string }>;
+}) {
   const { lang: currentLang, slug } = await props.params;
 
   if (!isLocale(currentLang) || !ACTIVE_LOCALES.includes(currentLang as Locale)) {
@@ -60,7 +65,7 @@ export default async function TilPostPage(props: TilPostPageProps) {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const post = await getPostBySlug(locale, 'til', [slug]);
+  const post = await getPostBySlug(locale, 'projetos', [slug]);
 
   if (!post) {
     notFound();
@@ -68,7 +73,7 @@ export default async function TilPostPage(props: TilPostPageProps) {
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.til, href: href(locale, '/til') },
+    { label: dictionary.nav.projetos, href: href(locale, '/projetos') },
     { label: post.title },
   ];
 
@@ -78,38 +83,24 @@ export default async function TilPostPage(props: TilPostPageProps) {
     <article className="space-y-6">
       <Breadcrumbs items={breadcrumbs} prefixLabel={dictionary.breadcrumbs.prefix} />
 
-      <header className="space-y-3">
-        <h1 className="font-mono text-2xl sm:text-3xl font-bold tracking-tight text-fg">
+      <header className="space-y-2">
+        <h1 className="font-mono text-2xl font-bold tracking-tight text-fg">
           {post.title}
         </h1>
-
-        {post.description && (
-          <p className="text-muted text-sm font-mono leading-relaxed">
-            {post.description}
-          </p>
-        )}
-
         <PostMetaLine meta={post} dictionary={dictionary} />
       </header>
 
-      {/* Sumário de seções se houver */}
-      {post.toc.length > 0 && (
-        <Toc items={post.toc} title={dictionary.wiki.tableOfContents} />
-      )}
-
-      {/* Conteúdo compilado via RSC */}
       <div className="prose-wiki mt-6">
         {post.body}
       </div>
 
-      {/* Rodapé da entrada TIL */}
       <footer className="border-t border-border pt-4 mt-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
         <div>
           <Link
-            href={href(locale, '/til') as Route}
+            href={href(locale, '/projetos') as Route}
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            &larr; {dictionary.til.backToTil}
+            &larr; {dictionary.projetos.backToProjetos}
           </Link>
         </div>
 
@@ -120,7 +111,7 @@ export default async function TilPostPage(props: TilPostPageProps) {
             rel="noopener noreferrer"
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.wiki.editOnGithub} ↗
+            {dictionary.escritos.editOnGithub} ↗
           </a>
         </div>
       </footer>

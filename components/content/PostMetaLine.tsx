@@ -12,31 +12,31 @@ export interface PostMetaLineProps {
 export function PostMetaLine({ meta, dictionary, className = '' }: PostMetaLineProps) {
   const publishedDate = formatDate(meta.lang, meta.date);
   const updatedDate = meta.updated ? formatDate(meta.lang, meta.updated) : null;
-  const readingTimeText = dictionary.wiki.readingTime.replace(
+  const readingTimeText = dictionary.escritos.readingTime.replace(
     '{minutes}',
     String(meta.readingMinutes)
   );
-  const statusLabel = dictionary.wiki.status[meta.status] || meta.status;
+  const statusLabel = dictionary.escritos.status[meta.status] || meta.status;
 
   return (
     <div className={`border-y border-border py-2.5 my-3 font-mono text-xs text-muted space-y-1.5 ${className}`}>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span>
-          <strong className="text-fg">{dictionary.wiki.publishedAt}:</strong> {publishedDate}
+          <strong className="text-fg">{dictionary.escritos.publishedAt}:</strong> {publishedDate}
         </span>
 
         {updatedDate && (
           <>
             <span className="text-border" aria-hidden="true">•</span>
             <span>
-              <strong className="text-fg">{dictionary.wiki.updatedAt}:</strong> {updatedDate}
+              <strong className="text-fg">{dictionary.escritos.updatedAt}:</strong> {updatedDate}
             </span>
           </>
         )}
 
         <span className="text-border" aria-hidden="true">•</span>
         <span>
-          <strong className="text-fg">{dictionary.wiki.statusLabel}:</strong> {statusLabel}
+          <strong className="text-fg">{dictionary.escritos.statusLabel}:</strong> {statusLabel}
         </span>
 
         <span className="text-border" aria-hidden="true">•</span>
@@ -45,7 +45,7 @@ export function PostMetaLine({ meta, dictionary, className = '' }: PostMetaLineP
 
       {meta.tags && meta.tags.length > 0 && (
         <div className="flex items-center gap-2 pt-0.5">
-          <span className="text-fg font-semibold">{dictionary.wiki.tagsLabel}</span>
+          <span className="text-fg font-semibold">{dictionary.escritos.tagsLabel}</span>
           <TagList tags={meta.tags} lang={meta.lang} />
         </div>
       )}

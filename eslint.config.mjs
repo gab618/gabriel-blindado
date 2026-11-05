@@ -7,8 +7,9 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     files: [
-      "app/[lang]/wiki/**",
-      "app/[lang]/til/**",
+      "app/[lang]/escritos/**",
+      "app/[lang]/diario/**",
+      "app/[lang]/projetos/**",
       "app/[lang]/tags/**",
       "lib/content/**",
     ],
@@ -36,7 +37,6 @@ const eslintConfig = defineConfig([
   },
   {
     files: [
-      "app/[lang]/tools/**/tool.tsx",
       "components/islands/**",
     ],
     rules: {

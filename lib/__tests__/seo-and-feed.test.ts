@@ -4,7 +4,7 @@ import sitemap from '@/app/sitemap';
 import { GET as getFeed } from '@/app/[lang]/feed.xml/route';
 import { siteConfig } from '@/lib/site';
 
-describe('Phase 7: SEO, Sitemap, Robots & RSS Feed', () => {
+describe('SEO, Sitemap, Robots & RSS Feed', () => {
   it('generates valid robots.txt configuration', () => {
     const robotsData = robots();
 
@@ -16,7 +16,7 @@ describe('Phase 7: SEO, Sitemap, Robots & RSS Feed', () => {
     expect(rules[0].userAgent).toBe('*');
   });
 
-  it('generates a complete, localized sitemap including core pages, tools, wiki and til', async () => {
+  it('generates a complete, localized sitemap including core pages, escritos, diario and projetos', async () => {
     const sitemapEntries = await sitemap();
 
     expect(sitemapEntries.length).toBeGreaterThan(0);
@@ -25,17 +25,14 @@ describe('Phase 7: SEO, Sitemap, Robots & RSS Feed', () => {
 
     // Core static routes
     expect(urls).toContain(`${siteConfig.url}/pt`);
-    expect(urls).toContain(`${siteConfig.url}/pt/wiki`);
-    expect(urls).toContain(`${siteConfig.url}/pt/til`);
-    expect(urls).toContain(`${siteConfig.url}/pt/tools`);
+    expect(urls).toContain(`${siteConfig.url}/pt/escritos`);
+    expect(urls).toContain(`${siteConfig.url}/pt/diario`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos`);
     expect(urls).toContain(`${siteConfig.url}/pt/tags`);
 
-    // Tool routes
-    expect(urls).toContain(`${siteConfig.url}/pt/tools/base-converter`);
-
-    // Wiki seed notes
-    expect(urls).toContain(`${siteConfig.url}/pt/wiki/linux/systemd`);
-    expect(urls).toContain(`${siteConfig.url}/pt/wiki/web/cache-components`);
+    // Escritos notes
+    expect(urls).toContain(`${siteConfig.url}/pt/escritos/receitas/bolo-de-cenoura`);
+    expect(urls).toContain(`${siteConfig.url}/pt/escritos/reflexoes/sobre-desacelerar-e-escrever`);
 
     // Every entry must have a valid lastModified date
     for (const entry of sitemapEntries) {

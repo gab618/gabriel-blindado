@@ -91,7 +91,12 @@ export default async function TagDetailsPage(props: TagDetailsPageProps) {
           <TableBody>
             {posts.map((post) => {
               const dateStr = formatDate(locale, post.date);
-              const collectionLabel = post.collection === 'wiki' ? 'Wiki' : 'TIL';
+              const collectionLabel =
+                post.collection === 'escritos'
+                  ? 'Escritos'
+                  : post.collection === 'diario'
+                    ? 'Diário'
+                    : 'Projetos';
 
               return (
                 <TableRow key={post.href}>

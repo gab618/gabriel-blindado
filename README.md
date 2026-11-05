@@ -1,175 +1,133 @@
 # gabrielblindado.com.br
 
-Site pessoal, digital garden (wiki técnica/TIL) e laboratório de utilitários interativos com estética brutalista inspirada no Debian.org e Arch Wiki.
+Canto pessoal na web: caderno de escritos, receitas afetivas, diário de bordo e projetos pessoais. Estética limpa, minimalista e tipográfica, focada nas palavras, na tranquilidade e sem ruído de algoritmos.
 
-Construído com **Next.js 16 (App Router + Cache Components)**, **React 19**, **Tailwind CSS v4** e geração estática (SSG) de alta densidade sem overhead de JavaScript em páginas de texto.
+Construído com **Next.js 16 (App Router + Cache Components)**, **React 19**, **Tailwind CSS v4** e geração estática (SSG) de alta velocidade sem overhead de JavaScript em páginas de leitura.
 
 ---
 
 ## Como Adicionar Conteúdo (Markdown)
 
-Você **não precisa mexer em código React/TypeScript** para escrever no site. Todo o conteúdo é gerenciado em arquivos Markdown locais na pasta `content/pt/`.
+Você **não precisa mexer em código React nem TypeScript** para publicar no site. Todo o conteúdo é gerenciado em arquivos Markdown normais na pasta `content/pt/`.
 
-### 1. Adicionar uma Página na Wiki Técnica
+### 1. Adicionar um Escrito, Ensaio ou Receita
 
-A Wiki é hierárquica e categorizada por assuntos de longo prazo.
+A seção de **Escritos** organiza textos mais aprofundados, reflexões sobre o ano e receitas culinárias.
 
-- **Local:** `content/pt/wiki/<categoria>/<nome-do-arquivo>.md`
-- **Exemplo de caminho:** `content/pt/wiki/linux/systemd.md`
-- **URL gerada:** `/pt/wiki/linux/systemd`
+- **Local:** `content/pt/escritos/<categoria>/<nome-do-arquivo>.md`
+- **Exemplos:**
+  - `content/pt/escritos/receitas/bolo-de-cenoura.md` &rarr; `/pt/escritos/receitas/bolo-de-cenoura`
+  - `content/pt/escritos/reflexoes/sobre-desacelerar.md` &rarr; `/pt/escritos/reflexoes/sobre-desacelerar`
 
-#### Template para nota de Wiki:
+#### Template:
 
 ```markdown
 ---
-title: "Guia de Systemd Units"
-description: "Como criar serviços e timers locais no Linux."
-date: 2026-11-02
+title: "Bolo de Cenoura com Calda Crocante"
+description: "A receita de família que nunca sola, com massa fofa e casquinha crocante."
+date: 2026-11-04
 status: evergreen
 tags:
-  - linux
-  - devops
-aliases:
-  - systemd-guide
+  - receitas
+  - culinaria
+  - afeto
 ---
 
-# Guia de Systemd Units
+# Bolo de Cenoura com Calda Crocante
 
-Texto introdutório sobre o tema...
-
-> [!NOTE]
-> Você pode usar caixas de aviso para destacar informações.
-
-## Como Iniciar um Serviço
-
-Instruções e comandos com syntax highlighting em build-time:
-
-```bash
-systemctl --user start meu-servico.service
-```
-
-### Wikilinks internos
-
-Você pode referenciar outras notas da wiki usando a sintaxe de wikilink:
-- `[[linux/arch]]`
-- `[[linux/arch|Guia de Instalação do Arch]]`
-```
-
----
-
-### 2. Adicionar uma Entrada no TIL (Today I Learned)
-
-O TIL é uma coleção cronológica rápida de aprendizados diários atômicos.
-
-- **Local:** `content/pt/til/<yyyy-mm-dd>-<slug>.md`
-- **Exemplo de caminho:** `content/pt/til/2026-11-02-docker-rootless.md`
-- **URL gerada:** `/pt/til/2026-11-02-docker-rootless`
-
-#### Template para entrada de TIL:
-
-```markdown
----
-title: "Docker em modo Rootless"
-description: "Executando containers com segurança sem usuário root."
-date: 2026-11-02
-status: seedling
-tags:
-  - docker
-  - seguranca
----
-
-# Docker em modo Rootless
-
-Hoje configurei o daemon do Docker para rodar no user namespace...
-```
-
----
-
-## Campos do Frontmatter (Metadados)
-
-O cabeçalho no topo de cada arquivo Markdown (`---`) é validado rigorosamente no build pelo Zod. Se houver algum erro, o build indica exatamente o arquivo e o campo que precisa de correção.
-
-| Campo | Tipo | Obrigatório | Descrição |
-|---|---|:---:|---|
-| `title` | `string` | **Sim** | Título do post (1 a 120 caracteres). |
-| `date` | `YYYY-MM-DD` | **Sim** | Data de publicação ou registro. |
-| `description` | `string` | Não | Resumo para SEO e listagens (máx. 200 caracteres). |
-| `updated` | `YYYY-MM-DD` | Não | Data da última revisão substancial. |
-| `tags` | `string[]` | Não | Lista de tags em minúsculas com hífen (`[linux, react]`). |
-| `status` | `enum` | Não | Fase da nota: `seedling` (semente), `budding` (em broto), `evergreen` (madura). Padrão: `seedling`. |
-| `draft` | `boolean` | Não | Se `true`, aparece em `pnpm dev` mas é omitido no build de produção. Padrão: `false`. |
-| `aliases` | `string[]` | Não | Apelidos para resolução de wikilinks. |
-| `translationKey` | `string` | Não | Identificador para associar a versão traduzida (default: `<collection>/<caminho>`). |
-
----
-
-## Recursos e Sintaxes Especiais Suportadas
-
-### 1. Caixas de Aviso Técnicas (Admonitions)
-Use o padrão do GitHub Flavored Markdown:
-
-```markdown
-> [!NOTE]
-> Informação contextual ou documentação de apoio.
+Texto de introdução e história da receita...
 
 > [!TIP]
-> Sugestão de boas práticas ou otimização de performance.
+> Use ovos em temperatura ambiente.
 
-> [!IMPORTANT]
-> Requisito crucial ou detalhe fundamental.
+## Ingredientes
 
-> [!WARNING]
-> Aviso de potencial incompatibilidade ou deprecation.
+| Ingrediente | Quantidade |
+|---|---|
+| Cenoura média | 3 unidades |
+| Ovos | 3 unidades |
 
-> [!CAUTION]
-> Ação de risco com chance de quebra ou perda de dados.
+## Modo de Preparo
+1. Bata no liquidificador...
 ```
 
-### 2. Wikilinks
-- `[[caminho/da-nota]]` gera um link para `/pt/wiki/caminho/da-nota`.
-- `[[caminho/da-nota|Texto Personalizado]]` define um rótulo visível para o link.
+---
 
-### 3. Tabelas Limpas
-Tabelas Markdown convencionais são renderizadas com bordas nítidas de 1px e rolagem horizontal em telas pequenas:
+### 2. Adicionar uma Nota no Diário de Bordo
+
+O **Diário** serve para fragmentos curtos, observações da rotina e ideias breves.
+
+- **Local:** `content/pt/diario/YYYY-MM-DD-<titulo-curto>.md`
+- **Exemplo:** `content/pt/diario/2026-11-04-o-silencio-da-manha.md`
+- **URL gerada:** `/pt/diario/2026-11-04-o-silencio-da-manha`
+
+#### Template:
 
 ```markdown
-| Comando | Descrição |
-|---|---|
-| `ls -la` | Lista todos os arquivos detalhadamente |
-| `df -h` | Exibe o uso de disco legível |
+---
+title: "O silêncio da manhã e o ritual do café"
+description: "A tranquilidade de acordar cedo e começar o dia sem pressa."
+date: 2026-11-04
+status: evergreen
+tags:
+  - rotina
+  - cafe
+---
+
+# O silêncio da manhã e o ritual do café
+
+Acordei cedo hoje e moí o café com calma...
 ```
 
 ---
 
-## Adicionando Novas Páginas e Ferramentas
+### 3. Adicionar um Projeto Pessoal
 
-| Tipo de Conteúdo | Onde criar | Como implementar |
-|---|---|---|
-| **Nota de Wiki** | `content/pt/wiki/<categoria>/<post>.md` | Apenas Markdown |
-| **Nota de TIL** | `content/pt/til/<yyyy-mm-dd>-<post>.md` | Apenas Markdown |
-| **Página estática comum** (ex: `/pt/sobre`) | `app/[lang]/sobre/page.tsx` | Server Component React (RSC) |
-| **Ferramenta/calculadora interativa** | `app/[lang]/tools/<slug>/tool.tsx` | Client Component (`'use client'`) |
+A seção de **Projetos** serve para catalogar coisas que você criou, tirou do papel ou iniciativas que você tem orgulho de compartilhar.
+
+- **Local:** `content/pt/projetos/<slug>.md`
+- **Exemplo:** `content/pt/projetos/meu-canto-na-web.md`
+- **URL gerada:** `/pt/projetos/meu-canto-na-web`
+
+#### Template:
+
+```markdown
+---
+title: "Minha Primeira Horta em Vasos"
+description: "Como comecei a plantar temperos frescos na varanda de casa."
+date: 2026-11-04
+status: budding
+tags:
+  - projetos
+  - plantas
+---
+
+# Minha Primeira Horta em Vasos
+
+Relato do projeto, fotos e aprendizados...
+```
 
 ---
 
-## Comandos do Projeto
+## Recursos Embutidos
+
+- **Wikilinks internos:** Conecte textos digitando `[[receitas/bolo-de-cenoura]]` ou `[[receitas/bolo-de-cenoura|meu bolo de cenoura]]`. O site gera o link automaticamente e calcula a seção de **Backlinks (Notas que mencionam esta)** no rodapé de cada texto.
+- **Busca Rápida Offline (`Ctrl+K` ou `Cmd+K`):** Filtra instantaneamente por título, tags e descrição de qualquer publicação.
+- **Tema Claro / Escuro / Auto:** Alternador sem flash de hidratação no cabeçalho.
+- **Feed RSS 2.0:** Disponível em `/pt/feed.xml` para leitores de RSS.
+- **Sitemap & Robots:** Gerados automaticamente para mecanismos de busca.
+
+---
+
+## Comandos de Desenvolvimento
 
 ```bash
-# Iniciar o servidor de desenvolvimento
+# Rodar servidor de desenvolvimento
 pnpm dev
 
-# Executar a suíte de testes unitários (Vitest)
+# Rodar a suíte de testes
 pnpm test
 
-# Checar tipagem TypeScript (sem emitir arquivos)
-pnpm typecheck
-
-# Executar o linter (ESLint)
-pnpm lint
-
-# Compilar build estático de produção
-pnpm build
-
-# Testar build compilado localmente
-pnpm start
+# Validação completa (lint, tipos, testes, fronteiras e build estático)
+pnpm validate
 ```

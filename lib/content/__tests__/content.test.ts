@@ -7,35 +7,35 @@ import { getAllPosts, getPostBySlug, getAllTags } from '../index';
 
 describe('Content Layer — Parser and Schema Validation', () => {
   const dummyFile: DiscoveredFile = {
-    absolutePath: '/dummy/content/pt/wiki/linux/arch.md',
-    sourcePath: 'content/pt/wiki/linux/arch.md',
+    absolutePath: '/dummy/content/pt/escritos/reflexoes/sobre-desacelerar.md',
+    sourcePath: 'content/pt/escritos/reflexoes/sobre-desacelerar.md',
     lang: 'pt',
-    collection: 'wiki',
-    slug: ['linux', 'arch'],
-    defaultTranslationKey: 'wiki/linux/arch',
+    collection: 'escritos',
+    slug: ['reflexoes', 'sobre-desacelerar'],
+    defaultTranslationKey: 'escritos/reflexoes/sobre-desacelerar',
   };
 
   it('correctly parses and validates valid frontmatter', () => {
     const raw = `---
-title: "Arch Linux Setup"
-description: "Guia de instalação minimalista"
-date: 2026-11-02
+title: "Sobre Desacelerar"
+description: "Reflexão pessoal"
+date: 2026-11-04
 status: evergreen
 tags:
-  - linux
-  - arch
+  - reflexoes
+  - vida
 ---
 # Conteúdo principal
 Texto de exemplo com várias palavras para cálculo de leitura.`;
 
     const { meta, content } = parseMarkdownString(raw, dummyFile);
 
-    expect(meta.title).toBe('Arch Linux Setup');
-    expect(meta.description).toBe('Guia de instalação minimalista');
-    expect(meta.tags).toEqual(['linux', 'arch']);
+    expect(meta.title).toBe('Sobre Desacelerar');
+    expect(meta.description).toBe('Reflexão pessoal');
+    expect(meta.tags).toEqual(['reflexoes', 'vida']);
     expect(meta.status).toBe('evergreen');
-    expect(meta.translationKey).toBe('wiki/linux/arch');
-    expect(meta.href).toBe('/pt/wiki/linux/arch');
+    expect(meta.translationKey).toBe('escritos/reflexoes/sobre-desacelerar');
+    expect(meta.href).toBe('/pt/escritos/reflexoes/sobre-desacelerar');
     expect(meta.readingMinutes).toBeGreaterThanOrEqual(1);
     expect(content.trim()).toBe('# Conteúdo principal\nTexto de exemplo com várias palavras para cálculo de leitura.');
   });
@@ -43,7 +43,7 @@ Texto de exemplo com várias palavras para cálculo de leitura.`;
   it('rejects missing required title with ContentError', () => {
     const raw = `---
 description: "Sem título"
-date: 2026-11-02
+date: 2026-11-04
 ---
 Conteúdo`;
 
@@ -52,7 +52,7 @@ Conteúdo`;
       parseMarkdownString(raw, dummyFile);
     } catch (err) {
       const cErr = err as ContentError;
-      expect(cErr.filePath).toBe('content/pt/wiki/linux/arch.md');
+      expect(cErr.filePath).toBe('content/pt/escritos/reflexoes/sobre-desacelerar.md');
       expect(cErr.issues?.some((i) => i.path === 'title')).toBe(true);
     }
   });
@@ -60,9 +60,9 @@ Conteúdo`;
   it('rejects invalid tag formatting (uppercase or spaces)', () => {
     const raw = `---
 title: "Título"
-date: 2026-11-02
+date: 2026-11-04
 tags:
-  - Linux Invalido
+  - Tag Invalida
 ---
 Conteúdo`;
 
@@ -72,7 +72,7 @@ Conteúdo`;
   it('uses custom translationKey if provided in frontmatter', () => {
     const raw = `---
 title: "Título"
-date: 2026-11-02
+date: 2026-11-04
 translationKey: "custom-key-123"
 ---
 Conteúdo`;
@@ -122,44 +122,43 @@ Texto 3.
   it('transforms admonitions (> [!WARNING]) in AST', async () => {
     const source = `
 > [!WARNING]
-> Cuidado ao rodar comandos como root.
+> Cuidado ao cozinhar com fogo alto.
 `;
 
     const { hast } = await compileMarkdown(source, 'pt');
-    // Verifica se existe um elemento admonition no HAST
     const hasAdmonition = JSON.stringify(hast).includes('"tagName":"admonition"');
     expect(hasAdmonition).toBe(true);
   });
 
-  it('transforms wikilinks into relative wiki links', async () => {
+  it('transforms wikilinks into relative links', async () => {
     const source = `
-Consulte a documentação em [[linux/arch|Guia Arch]].
+Consulte a receita em [[receitas/bolo-de-cenoura|Bolo de Cenoura]].
 `;
 
     const { hast } = await compileMarkdown(source, 'pt');
     const hastJson = JSON.stringify(hast);
-    expect(hastJson).toContain('href":"/pt/wiki/linux/arch');
-    expect(hastJson).toContain('Guia Arch');
+    expect(hastJson).toContain('href":"/pt/escritos/receitas/bolo-de-cenoura');
+    expect(hastJson).toContain('Bolo de Cenoura');
   });
 });
 
 describe('Content Layer — Real Content Discovery & Queries', () => {
   it('loads real posts from disk in content/pt/', async () => {
     const posts = await getAllPosts('pt');
-    expect(posts.length).toBeGreaterThanOrEqual(2);
+    expect(posts.length).toBeGreaterThanOrEqual(3);
 
-    const wikiPost = posts.find((p) => p.collection === 'wiki');
-    const tilPost = posts.find((p) => p.collection === 'til');
+    const escritoPost = posts.find((p) => p.collection === 'escritos');
+    const diarioPost = posts.find((p) => p.collection === 'diario');
 
-    expect(wikiPost).toBeDefined();
-    expect(tilPost).toBeDefined();
+    expect(escritoPost).toBeDefined();
+    expect(diarioPost).toBeDefined();
   });
 
   it('compiles full post via getPostBySlug', async () => {
-    const post = await getPostBySlug('pt', 'wiki', []);
+    const post = await getPostBySlug('pt', 'escritos', ['receitas', 'bolo-de-cenoura']);
     expect(post).not.toBeNull();
     if (post) {
-      expect(post.title).toContain('Wiki Técnica');
+      expect(post.title).toContain('Bolo de Cenoura');
       expect(post.body).toBeDefined();
       expect(post.toc.length).toBeGreaterThan(0);
     }
@@ -169,7 +168,7 @@ describe('Content Layer — Real Content Discovery & Queries', () => {
     const tags = await getAllTags('pt');
     expect(tags.length).toBeGreaterThan(0);
     const tagNames = tags.map((t) => t.tag);
-    expect(tagNames).toContain('meta');
-    expect(tagNames).toContain('wiki');
+    expect(tagNames).toContain('receitas');
+    expect(tagNames).toContain('reflexoes');
   });
 });

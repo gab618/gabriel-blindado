@@ -12,11 +12,10 @@ const VIOLATIONS: Violation[] = [];
 
 // Allowlist regexes for files permitted to have 'use client'
 const USE_CLIENT_ALLOWLIST = [
-  /^app\/\[lang\]\/tools\/[^/]+\/tool\.tsx$/,
   /^components\/islands\/.+\.tsx?$/,
 ];
 
-const SCAN_DIRS = ['app', 'components', 'lib', 'tools'];
+const SCAN_DIRS = ['app', 'components', 'lib'];
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']);
 
 function walk(dir: string, fileList: string[] = []): string[] {
@@ -85,10 +84,11 @@ function checkFile(relPath: string) {
     }
   }
 
-  // 3. Content pages não podem importar ferramentas nem 'client-only'
+  // 3. Content pages não podem importar ilhas nem 'client-only'
   const isContentCode =
-    relPath.startsWith('app/[lang]/wiki') ||
-    relPath.startsWith('app/[lang]/til') ||
+    relPath.startsWith('app/[lang]/escritos') ||
+    relPath.startsWith('app/[lang]/diario') ||
+    relPath.startsWith('app/[lang]/projetos') ||
     relPath.startsWith('app/[lang]/tags') ||
     relPath.startsWith('lib/content');
 

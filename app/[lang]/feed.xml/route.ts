@@ -40,20 +40,16 @@ export async function GET(
   const feedUrl = `${baseUrl}/${locale}/feed.xml`;
   const siteUrl = `${baseUrl}/${locale}`;
 
-  // Busca todos os posts da wiki e til ordenados por data
-  const wikiPosts = await getAllPosts(locale, 'wiki');
-  const tilPosts = await getAllPosts(locale, 'til');
-  const allPosts = [...wikiPosts, ...tilPosts].sort(
-    (a, b) => (b.updated || b.date).getTime() - (a.updated || a.date).getTime()
-  );
+  // Busca todos os posts ordenados por data
+  const allPosts = await getAllPosts(locale);
 
-  const channelTitle = `${siteConfig.author} — Wiki & TIL (${LOCALE_META[locale].label})`;
+  const channelTitle = `${siteConfig.author} — Caderno & Diário (${LOCALE_META[locale].label})`;
   const channelDescription =
     locale === 'pt'
-      ? 'Notas técnicas, TILs e documentação de engenharia de software.'
-      : 'Technical notes, TILs, and software engineering documentation.';
+      ? 'Ensaios, receitas culinárias, diário de bordo e projetos pessoais.'
+      : 'Essays, cooking recipes, personal journal and creative projects.';
 
-  const latestPostDate = allPosts[0]?.updated || allPosts[0]?.date || new Date('2026-11-02T00:00:00Z');
+  const latestPostDate = allPosts[0]?.updated || allPosts[0]?.date || new Date('2026-11-04T00:00:00Z');
 
   const itemsXml = allPosts
     .map((post) => {

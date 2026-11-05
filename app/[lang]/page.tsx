@@ -30,13 +30,13 @@ export default async function HomePage(props: {
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
 
-  // Carrega todos os posts combinados (Wiki + TIL) já ordenados por data decrescente
+  // Carrega todos os posts combinados (Escritos + Diário + Projetos)
   const allPosts = await getAllPosts(locale);
   const recentPosts = allPosts.slice(0, 5);
 
   return (
     <div className="space-y-10">
-      {/* Apresentação Técnica / Bio */}
+      {/* Apresentação Pessoal / Bio */}
       <section className="border border-border p-5 bg-code-bg/30 space-y-3 font-mono">
         <h1 className="text-xl sm:text-2xl font-bold text-fg tracking-tight">
           {dictionary.home.heroGreeting}
@@ -45,6 +45,10 @@ export default async function HomePage(props: {
           {dictionary.home.heroBio}
         </p>
         <div className="pt-1 text-xs text-muted flex flex-wrap gap-4">
+          <span>
+            <strong className="text-fg">Autor:</strong> {siteConfig.author}
+          </span>
+          <span className="text-border">•</span>
           <span>
             <strong className="text-fg">GitHub:</strong>{' '}
             <a
@@ -55,10 +59,6 @@ export default async function HomePage(props: {
             >
               @gab618 ↗
             </a>
-          </span>
-          <span className="text-border">•</span>
-          <span>
-            <strong className="text-fg">Status:</strong> Digital Garden Ativo
           </span>
         </div>
       </section>
@@ -71,48 +71,48 @@ export default async function HomePage(props: {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
           <Link
-            href={href(locale, '/wiki') as Route}
+            href={href(locale, '/escritos') as Route}
             className="border border-border p-3.5 bg-bg hover:border-link transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="font-bold text-sm text-link group-hover:underline">
-                [Wiki Técnica]
+                [Escritos & Receitas]
               </div>
               <p className="text-muted mt-1 font-sans text-xs">
-                {dictionary.home.wikiDesc}
+                {dictionary.home.escritosDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Acessar notas</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Abrir caderno</span>
           </Link>
 
           <Link
-            href={href(locale, '/til') as Route}
+            href={href(locale, '/diario') as Route}
             className="border border-border p-3.5 bg-bg hover:border-link transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="font-bold text-sm text-link group-hover:underline">
-                [TIL — Today I Learned]
+                [Diário de Bordo]
               </div>
               <p className="text-muted mt-1 font-sans text-xs">
-                {dictionary.home.tilDesc}
+                {dictionary.home.diarioDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Acessar diário</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Ver notas diárias</span>
           </Link>
 
           <Link
-            href={href(locale, '/tools') as Route}
+            href={href(locale, '/projetos') as Route}
             className="border border-border p-3.5 bg-bg hover:border-link transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="font-bold text-sm text-link group-hover:underline">
-                [Ferramentas & Utilitários]
+                [Projetos Pessoais]
               </div>
               <p className="text-muted mt-1 font-sans text-xs">
-                {dictionary.home.toolsDesc}
+                {dictionary.home.projetosDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Abrir utilitários</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Ver iniciativas</span>
           </Link>
 
           <Link
@@ -127,19 +127,19 @@ export default async function HomePage(props: {
                 {dictionary.home.tagsDesc}
               </p>
             </div>
-            <span className="text-muted text-[11px] mt-2 block">&rarr; Explorar tags</span>
+            <span className="text-muted text-[11px] mt-2 block">&rarr; Explorar tópicos</span>
           </Link>
         </div>
       </section>
 
-      {/* Últimas Atualizações / Notas Recentes */}
+      {/* Últimas Publicações */}
       <section className="space-y-4">
         <div className="flex items-baseline justify-between border-b border-border pb-1 font-mono text-xs">
           <span className="font-bold text-muted uppercase tracking-wider">
             [{dictionary.home.recentUpdates}]
           </span>
           <Link
-            href={href(locale, '/wiki') as Route}
+            href={href(locale, '/escritos') as Route}
             className="text-link hover:underline"
           >
             {dictionary.home.viewAllNotes} &rarr;
@@ -147,12 +147,12 @@ export default async function HomePage(props: {
         </div>
 
         {recentPosts.length === 0 ? (
-          <p className="text-muted text-sm font-mono">{dictionary.til.empty}</p>
+          <p className="text-muted text-sm font-mono">{dictionary.diario.empty}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-24">{dictionary.common.collection}</TableHead>
+                <TableHead className="w-28">{dictionary.common.collection}</TableHead>
                 <TableHead>{dictionary.tags.tableHeaderTitle}</TableHead>
                 <TableHead className="w-32 hidden sm:table-cell">{dictionary.tags.tableHeaderDate}</TableHead>
               </TableRow>
@@ -160,7 +160,12 @@ export default async function HomePage(props: {
             <TableBody>
               {recentPosts.map((post) => {
                 const dateStr = formatDate(locale, post.date);
-                const collectionBadge = post.collection === 'wiki' ? 'Wiki' : 'TIL';
+                const collectionBadge =
+                  post.collection === 'escritos'
+                    ? 'Escritos'
+                    : post.collection === 'diario'
+                      ? 'Diário'
+                      : 'Projetos';
 
                 return (
                   <TableRow key={post.href}>

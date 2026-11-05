@@ -11,57 +11,82 @@ import { Toc } from '@/components/content/Toc';
 import { href } from '@/lib/i18n/href';
 import { siteConfig } from '@/lib/site';
 
-interface WikiNotePageProps {
-  params: Promise<{
-    lang: string;
-    slug: string[];
-  }>;
-}
-
-/**
- * Pré-renderiza todas as notas da Wiki durante o build (SSG)
- */
 export async function generateStaticParams() {
-  const posts = await getAllPosts('pt', 'wiki');
-  const subPosts = posts.filter((p) => p.slug.length > 0);
+  const params: { lang: string; slug: string[] }[] = [];
 
-  return subPosts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export async function generateMetadata(props: WikiNotePageProps): Promise<Metadata> {
-  const { lang: currentLang, slug } = await props.params;
-
-  if (!isLocale(currentLang)) {
-    return { title: 'Not Found' };
+  for (const lang of ACTIVE_LOCALES) {
+    const posts = await getAllPosts(lang, 'escritos');
+    for (const post of posts) {
+      if (post.slug.length > 0) {
+        params.push({ lang, slug: post.slug });
+      }
+    }
   }
 
-  const post = await getPostBySlug(currentLang as Locale, 'wiki', slug);
+  // Previne falha de build se estiver vazio
+  if (params.length === 0) {
+    return [{ lang: 'pt', slug: ['reflexoes', 'sobre-desacelerar-e-escrever'] }];
+  }
+
+  return params;
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ lang: string; slug: string[] }>;
+}): Promise<Metadata> {
+  const { lang: currentLang, slug } = await props.params;
+
+  if (!isLocale(currentLang) || !slug || slug.length === 0) {
+    return {};
+  }
+
+  const locale = currentLang as Locale;
+  const post = await getPostBySlug(locale, 'escritos', slug);
+
   if (!post) {
-    return { title: 'Not Found' };
+    return {};
+  }
+
+  const baseUrl = siteConfig.url;
+  const languages: Record<string, string> = {};
+  for (const [tLang, tHref] of Object.entries(post.translations)) {
+    languages[tLang] = `${baseUrl}${tHref}`;
   }
 
   return {
     title: `${post.title} — ${siteConfig.name}`,
     description: post.description || post.title,
     alternates: {
-      canonical: post.href,
-      languages: post.translations,
+      canonical: `/${locale}/escritos/${slug.join('/')}`,
+      languages: Object.keys(languages).length > 0 ? languages : undefined,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description || post.title,
+      type: 'article',
+      publishedTime: post.date.toISOString(),
+      modifiedTime: (post.updated || post.date).toISOString(),
+      tags: post.tags,
     },
   };
 }
 
-export default async function WikiNotePage(props: WikiNotePageProps) {
+export default async function EscritoDetailPage(props: {
+  params: Promise<{ lang: string; slug: string[] }>;
+}) {
   const { lang: currentLang, slug } = await props.params;
 
   if (!isLocale(currentLang) || !ACTIVE_LOCALES.includes(currentLang as Locale)) {
     notFound();
   }
 
+  if (!slug || slug.length === 0) {
+    notFound();
+  }
+
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-  const post = await getPostBySlug(locale, 'wiki', slug);
+  const post = await getPostBySlug(locale, 'escritos', slug);
 
   if (!post) {
     notFound();
@@ -69,19 +94,18 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
 
   const backlinks = await getBacklinks(locale, slug);
 
-  // Constrói migalhas de pão dinâmicas a partir da hierarquia do slug
+  // Monta hierarquia de breadcrumbs
   const breadcrumbs: BreadcrumbItem[] = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.wiki, href: href(locale, '/wiki') },
+    { label: dictionary.nav.escritos, href: href(locale, '/escritos') },
   ];
 
   if (slug.length > 1) {
-    // Adiciona categorias intermediárias
     for (let i = 0; i < slug.length - 1; i++) {
       const catSlug = slug.slice(0, i + 1);
       breadcrumbs.push({
         label: slug[i],
-        href: href(locale, `/wiki/${catSlug.join('/')}`),
+        href: href(locale, `/escritos/${catSlug.join('/')}`),
       });
     }
   }
@@ -110,10 +134,10 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
 
       {/* Índice de seções (TOC) */}
       {post.toc.length > 0 && (
-        <Toc items={post.toc} title={dictionary.wiki.tableOfContents} />
+        <Toc items={post.toc} title={dictionary.escritos.tableOfContents} />
       )}
 
-      {/* Corpo principal do documento renderizado via RSC */}
+      {/* Corpo do texto */}
       <div className="prose-wiki mt-6">
         {post.body}
       </div>
@@ -122,7 +146,7 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
       {backlinks.length > 0 && (
         <section className="border border-border p-4 bg-code-bg/30 space-y-2 mt-8">
           <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-fg">
-            # {dictionary.wiki.backlinks} ({backlinks.length})
+            # {dictionary.escritos.backlinks} ({backlinks.length})
           </h2>
           <ul className="space-y-1 font-mono text-xs">
             {backlinks.map((bl) => (
@@ -142,10 +166,10 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
       <footer className="border-t border-border pt-4 mt-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
         <div>
           <Link
-            href={href(locale, '/wiki') as Route}
+            href={href(locale, '/escritos') as Route}
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.wiki.backToWiki}
+            &larr; {dictionary.escritos.backToEscritos}
           </Link>
         </div>
 
@@ -156,7 +180,7 @@ export default async function WikiNotePage(props: WikiNotePageProps) {
             rel="noopener noreferrer"
             className="text-link hover:underline inline-flex items-center gap-1"
           >
-            {dictionary.wiki.editOnGithub} ↗
+            {dictionary.escritos.editOnGithub} ↗
           </a>
         </div>
       </footer>

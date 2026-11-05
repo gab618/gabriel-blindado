@@ -19,15 +19,15 @@ export async function generateMetadata(props: {
   const dictionary = await getDictionary();
 
   return {
-    title: `${dictionary.til.title} — ${siteConfig.name}`,
-    description: dictionary.til.description,
+    title: `${dictionary.diario.title} — ${siteConfig.name}`,
+    description: dictionary.diario.description,
     alternates: {
-      canonical: `/${currentLang}/til`,
+      canonical: `/${currentLang}/diario`,
     },
   };
 }
 
-export default async function TilIndexPage(props: {
+export default async function DiarioIndexPage(props: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang: currentLang } = await props.params;
@@ -38,13 +38,11 @@ export default async function TilIndexPage(props: {
 
   const locale = currentLang as Locale;
   const dictionary = await getDictionary();
-
-  // Carrega todos os registros do TIL ordenados cronologicamente
-  const posts = await getAllPosts(locale, 'til');
+  const posts = await getAllPosts(locale, 'diario');
 
   const breadcrumbs = [
     { label: dictionary.nav.home, href: href(locale, '/') },
-    { label: dictionary.nav.til },
+    { label: dictionary.nav.diario },
   ];
 
   return (
@@ -53,62 +51,56 @@ export default async function TilIndexPage(props: {
 
       <header className="border-b border-border pb-4">
         <h1 className="font-mono text-2xl font-bold tracking-tight text-fg">
-          {dictionary.til.title}
+          {dictionary.diario.title}
         </h1>
         <p className="text-muted text-sm mt-1 font-mono">
-          {dictionary.til.description}
+          {dictionary.diario.description}
         </p>
       </header>
 
-      {/* Tabela Cronológica Densa */}
-      <section className="space-y-3">
-        <div className="font-mono text-xs font-bold text-muted uppercase tracking-wider">
-          [{dictionary.til.allEntries} — {posts.length}]
+      {/* Tabela de registros */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between font-mono text-xs text-muted border-b border-border pb-1">
+          <span>{dictionary.diario.allEntries}</span>
+          <span>{posts.length} notas</span>
         </div>
 
         {posts.length === 0 ? (
-          <p className="text-muted text-sm font-mono">{dictionary.til.empty}</p>
+          <p className="font-mono text-sm text-muted">{dictionary.diario.empty}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-28">{dictionary.til.tableHeaderDate}</TableHead>
-                <TableHead>{dictionary.til.tableHeaderTitle}</TableHead>
-                <TableHead className="w-48 hidden sm:table-cell">{dictionary.til.tableHeaderTags}</TableHead>
-                <TableHead className="w-36 hidden md:table-cell">{dictionary.til.tableHeaderStatus}</TableHead>
+                <TableHead className="w-28">{dictionary.diario.tableHeaderDate}</TableHead>
+                <TableHead>{dictionary.diario.tableHeaderTitle}</TableHead>
+                <TableHead className="hidden sm:table-cell">{dictionary.diario.tableHeaderTags}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {posts.map((post) => {
                 const dateStr = formatDate(locale, post.date);
-                const statusLabel = dictionary.wiki.status[post.status] || post.status;
+                const postUrl = post.href as Route;
 
                 return (
                   <TableRow key={post.href}>
-                    <TableCell className="font-mono text-xs text-muted whitespace-nowrap">
-                      <time dateTime={post.date.toISOString()}>{dateStr}</time>
+                    <TableCell className="text-muted whitespace-nowrap text-xs font-mono">
+                      {dateStr}
                     </TableCell>
-
                     <TableCell>
                       <Link
-                        href={post.href as Route}
-                        className="font-bold text-link hover:underline block"
+                        href={postUrl}
+                        className="font-mono text-sm font-semibold text-link hover:underline block"
                       >
                         {post.title}
                       </Link>
                       {post.description && (
-                        <p className="text-xs text-muted mt-0.5 line-clamp-1 sm:hidden">
+                        <span className="text-xs text-muted font-mono block mt-0.5 sm:hidden">
                           {post.description}
-                        </p>
+                        </span>
                       )}
                     </TableCell>
-
                     <TableCell className="hidden sm:table-cell">
                       <TagList tags={post.tags} lang={locale} />
-                    </TableCell>
-
-                    <TableCell className="hidden md:table-cell font-mono text-xs text-muted whitespace-nowrap">
-                      {statusLabel}
                     </TableCell>
                   </TableRow>
                 );
