@@ -16,7 +16,7 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     expect(rules[0].userAgent).toBe('*');
   });
 
-  it('generates a complete, localized sitemap including core pages, posts, notas and projetos', async () => {
+  it('generates a complete, localized sitemap including core pages and posts', async () => {
     const sitemapEntries = await sitemap();
 
     expect(sitemapEntries.length).toBeGreaterThan(0);
@@ -26,13 +26,10 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     // Core static routes
     expect(urls).toContain(`${siteConfig.url}/pt`);
     expect(urls).toContain(`${siteConfig.url}/pt/posts`);
-    expect(urls).toContain(`${siteConfig.url}/pt/notas`);
-    expect(urls).toContain(`${siteConfig.url}/pt/projetos`);
-    expect(urls).toContain(`${siteConfig.url}/pt/tags`);
 
     // Posts
-    expect(urls).toContain(`${siteConfig.url}/pt/posts/receitas/bolo-de-cenoura`);
-    expect(urls).toContain(`${siteConfig.url}/pt/posts/reflexoes/sobre-desacelerar-e-escrever`);
+    expect(urls).toContain(`${siteConfig.url}/pt/posts/bolo-de-cenoura`);
+    expect(urls).toContain(`${siteConfig.url}/pt/posts/sobre-desacelerar-e-escrever`);
 
     // Every entry must have a valid lastModified date
     for (const entry of sitemapEntries) {

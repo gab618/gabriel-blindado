@@ -132,12 +132,12 @@ Texto 3.
 
   it('transforms wikilinks into relative links', async () => {
     const source = `
-Consulte a receita em [[receitas/bolo-de-cenoura|Bolo de Cenoura]].
+Consulte a receita em [[bolo-de-cenoura|Bolo de Cenoura]].
 `;
 
     const { hast } = await compileMarkdown(source, 'pt');
     const hastJson = JSON.stringify(hast);
-    expect(hastJson).toContain('href":"/pt/posts/receitas/bolo-de-cenoura');
+    expect(hastJson).toContain('href":"/pt/posts/bolo-de-cenoura');
     expect(hastJson).toContain('Bolo de Cenoura');
   });
 });
@@ -148,14 +148,11 @@ describe('Content Layer — Real Content Discovery & Queries', () => {
     expect(posts.length).toBeGreaterThanOrEqual(3);
 
     const postItem = posts.find((p) => p.collection === 'posts');
-    const notaItem = posts.find((p) => p.collection === 'notas');
-
     expect(postItem).toBeDefined();
-    expect(notaItem).toBeDefined();
   });
 
   it('compiles full post via getPostBySlug', async () => {
-    const post = await getPostBySlug('pt', 'posts', ['receitas', 'bolo-de-cenoura']);
+    const post = await getPostBySlug('pt', 'posts', ['bolo-de-cenoura']);
     expect(post).not.toBeNull();
     if (post) {
       expect(post.title).toContain('Bolo de Cenoura');

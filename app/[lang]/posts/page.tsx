@@ -44,15 +44,6 @@ export default async function PostsIndexPage(props: {
     { label: dictionary.nav.posts },
   ];
 
-  // Agrupa os posts por categoria (primeiro segmento do slug)
-  const groupedByCategory = new Map<string, typeof posts>();
-  for (const post of posts) {
-    const category = post.slug.length > 1 ? post.slug[0] : 'geral';
-    const list = groupedByCategory.get(category) || [];
-    list.push(post);
-    groupedByCategory.set(category, list);
-  }
-
   return (
     <div className="space-y-6">
       <Breadcrumbs items={breadcrumbs} prefixLabel={dictionary.breadcrumbs.prefix} />
@@ -66,49 +57,40 @@ export default async function PostsIndexPage(props: {
         </p>
       </header>
 
-      {/* Listagem categorizada */}
-      <section className="space-y-8">
-        {Array.from(groupedByCategory.entries()).map(([category, catPosts]) => (
-          <div key={category} className="space-y-3">
-            <h2 className="font-mono text-base font-bold text-fg uppercase flex items-center gap-2 border-b border-border/80 pb-1">
-              <span className="text-muted">#</span> {category}
-              <span className="text-xs font-normal text-muted">
-                ({catPosts.length})
-              </span>
-            </h2>
+      {/* Lista linear e limpa de posts, sem divisórias de categoria */}
+      <section className="space-y-3">
+        {posts.length === 0 ? (
+          <p className="font-mono text-sm text-muted">{dictionary.posts.emptyCategory}</p>
+        ) : (
+          <div className="divide-y divide-border border border-border bg-bg">
+            {posts.map((post) => (
+              <article key={post.href} className="p-4 space-y-1.5 hover:bg-code-bg/30 transition-colors">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <Link
+                    href={post.href as Route}
+                    className="font-mono text-base font-bold text-link hover:underline"
+                  >
+                    {post.title}
+                  </Link>
+                  <time dateTime={post.date.toISOString()} className="font-mono text-xs text-muted whitespace-nowrap">
+                    {formatDate(locale, post.date)}
+                  </time>
+                </div>
 
-            <div className="divide-y divide-border border border-border bg-bg">
-              {catPosts.map((post) => (
-                <div key={post.href} className="p-3.5 space-y-1.5 hover:bg-code-bg/30 transition-colors">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <Link
-                      href={post.href as Route}
-                      className="font-mono text-base font-bold text-link hover:underline"
-                    >
-                      {post.title}
-                    </Link>
-                    <time dateTime={post.date.toISOString()} className="font-mono text-xs text-muted">
-                      {formatDate(locale, post.date)}
-                    </time>
-                  </div>
+                {post.description && (
+                  <p className="text-sm text-muted font-mono leading-relaxed">
+                    {post.description}
+                  </p>
+                )}
 
-                  {post.description && (
-                    <p className="text-sm text-muted font-mono leading-relaxed">
-                      {post.description}
-                    </p>
-                  )}
-
+                {post.tags && post.tags.length > 0 && (
                   <div className="pt-1">
                     <TagList tags={post.tags} lang={locale} />
                   </div>
-                </div>
-              ))}
-            </div>
+                )}
+              </article>
+            ))}
           </div>
-        ))}
-
-        {posts.length === 0 && (
-          <p className="font-mono text-sm text-muted">{dictionary.posts.emptyCategory}</p>
         )}
       </section>
     </div>

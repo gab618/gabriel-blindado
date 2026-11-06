@@ -6,8 +6,8 @@ describe('Posts Subsystem — Content Queries and Integration', () => {
     const posts = await getAllPosts('pt', 'posts');
     expect(posts.length).toBeGreaterThanOrEqual(2);
 
-    const receitaPost = posts.find((p) => p.slug.join('/') === 'receitas/bolo-de-cenoura');
-    const reflexaoPost = posts.find((p) => p.slug.join('/') === 'reflexoes/sobre-desacelerar-e-escrever');
+    const receitaPost = posts.find((p) => p.slug.join('/') === 'bolo-de-cenoura');
+    const reflexaoPost = posts.find((p) => p.slug.join('/') === 'sobre-desacelerar-e-escrever');
 
     expect(receitaPost).toBeDefined();
     expect(receitaPost?.title).toContain('Bolo de Cenoura');
@@ -17,8 +17,8 @@ describe('Posts Subsystem — Content Queries and Integration', () => {
     expect(reflexaoPost?.title).toContain('Desacelerar');
   });
 
-  it('fetches a single post by nested slug with full body and TOC', async () => {
-    const post = await getPostBySlug('pt', 'posts', ['receitas', 'bolo-de-cenoura']);
+  it('fetches a single post by slug with full body and TOC', async () => {
+    const post = await getPostBySlug('pt', 'posts', ['bolo-de-cenoura']);
 
     expect(post).not.toBeNull();
     if (post) {

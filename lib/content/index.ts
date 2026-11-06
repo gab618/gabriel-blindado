@@ -8,7 +8,7 @@ import { compileMarkdown } from './markdown';
 import { renderHastToJsx } from './render';
 import { ContentError } from './errors';
 
-const COLLECTIONS: Collection[] = ['posts', 'notas', 'projetos'];
+const COLLECTIONS: Collection[] = ['posts'];
 
 /**
  * Lê e indexa todos os metadados brutos de todas as coleções de um idioma

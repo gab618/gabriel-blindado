@@ -26,12 +26,42 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/:lang/diario",
-        destination: "/:lang/notas",
+        destination: "/:lang/posts",
         permanent: true,
       },
       {
         source: "/:lang/diario/:path*",
-        destination: "/:lang/notas/:path*",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/notas",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/notas/:path*",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/projetos",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/projetos/:path*",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/tags",
+        destination: "/:lang/posts",
+        permanent: true,
+      },
+      {
+        source: "/:lang/tags/:path*",
+        destination: "/:lang/posts",
         permanent: true,
       },
     ];

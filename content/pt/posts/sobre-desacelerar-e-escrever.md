@@ -26,7 +26,7 @@ Aos poucos, fui resgatando o gosto por atividades que não dependem de uma tela:
 - **Leituras longas:** Livros físicos, sem notificações pulando no topo da visão.
 - **Caminhadas sem destino:** Sair de casa sem fones de ouvido para apenas prestar atenção nos sons da rua.
 
-Essas práticas mudam o ritmo da semana. Quando você prepara um [[receitas/bolo-de-cenoura|bolo de cenoura caseiro]], você não está otimizando métricas; você está apenas vivendo o presente.
+Essas práticas mudam o ritmo da semana. Quando você prepara um [[bolo-de-cenoura|bolo de cenoura caseiro]], você não está otimizando métricas; você está apenas vivendo o presente.
 
 ## Escrever para Lembrar
 

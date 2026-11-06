@@ -12,7 +12,7 @@ describe('site configuration and navigation routes', () => {
   });
 
   it('NAV_ROUTES all correspond to valid nav dictionary keys', () => {
-    expect(NAV_ROUTES.length).toBeGreaterThanOrEqual(4);
+    expect(NAV_ROUTES.length).toBeGreaterThanOrEqual(2);
 
     for (const route of NAV_ROUTES) {
       expect(pt.nav[route.labelKey]).toBeDefined();

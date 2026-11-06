@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 
   // Previne falha de build se estiver vazio
   if (params.length === 0) {
-    return [{ lang: 'pt', slug: ['reflexoes', 'sobre-desacelerar-e-escrever'] }];
+    return [{ lang: 'pt', slug: ['sobre-desacelerar-e-escrever'] }];
   }
 
   return params;
