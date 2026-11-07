@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { Route } from 'next';
@@ -10,6 +11,8 @@ import { PostMetaLine } from '@/components/content/PostMetaLine';
 import { Toc } from '@/components/content/Toc';
 import { href } from '@/lib/i18n/href';
 import { siteConfig } from '@/lib/site';
+
+export const instant = false;
 
 export async function generateStaticParams() {
   const params: { lang: string; slug: string[] }[] = [];
@@ -25,7 +28,7 @@ export async function generateStaticParams() {
 
   // Previne falha de build se estiver vazio
   if (params.length === 0) {
-    return [{ lang: 'pt', slug: ['sobre-desacelerar-e-escrever'] }];
+    return [{ lang: 'pt', slug: ['hello-world'] }];
   }
 
   return params;
@@ -71,7 +74,34 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function PostDetailPage(props: {
+function PostSkeleton() {
+  return (
+    <div className="space-y-6 font-mono animate-pulse">
+      <div className="h-4 w-40 bg-border/40 rounded" />
+      <div className="space-y-2 border-b border-border pb-4">
+        <div className="h-8 w-2/3 bg-border/50 rounded" />
+        <div className="h-4 w-1/2 bg-border/30 rounded" />
+      </div>
+      <div className="space-y-3 pt-2">
+        <div className="h-4 w-full bg-border/30 rounded" />
+        <div className="h-4 w-5/6 bg-border/30 rounded" />
+        <div className="h-4 w-4/6 bg-border/30 rounded" />
+      </div>
+    </div>
+  );
+}
+
+export default function PostDetailPage(props: {
+  params: Promise<{ lang: string; slug: string[] }>;
+}) {
+  return (
+    <Suspense fallback={<PostSkeleton />}>
+      <PostDetailContent params={props.params} />
+    </Suspense>
+  );
+}
+
+async function PostDetailContent(props: {
   params: Promise<{ lang: string; slug: string[] }>;
 }) {
   const { lang: currentLang, slug } = await props.params;

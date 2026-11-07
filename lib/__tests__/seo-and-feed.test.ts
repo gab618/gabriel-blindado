@@ -28,8 +28,7 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     expect(urls).toContain(`${siteConfig.url}/pt/posts`);
 
     // Posts
-    expect(urls).toContain(`${siteConfig.url}/pt/posts/bolo-de-cenoura`);
-    expect(urls).toContain(`${siteConfig.url}/pt/posts/sobre-desacelerar-e-escrever`);
+    expect(urls).toContain(`${siteConfig.url}/pt/posts/hello-world`);
 
     // Every entry must have a valid lastModified date
     for (const entry of sitemapEntries) {
