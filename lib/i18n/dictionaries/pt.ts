@@ -28,6 +28,7 @@ export const pt = {
   nav: {
     home: 'Início',
     posts: 'Posts',
+    projetos: 'Projetos',
   },
   breadcrumbs: {
     prefix: 'Localização:',
@@ -39,7 +40,7 @@ export const pt = {
     toggleTheme: 'Alternar tema (auto/escuro/claro)',
   },
   search: {
-    placeholder: 'Buscar posts (Ctrl+K)...',
+    placeholder: 'Buscar posts e projetos (Ctrl+K)...',
     openSearch: 'Busca',
     noResults: 'Nenhum resultado encontrado.',
     close: 'Fechar [Esc]',
@@ -82,6 +83,15 @@ export const pt = {
     allDocuments: 'Todos os Posts',
     tagsLabel: 'Tags:',
     backlinks: 'Posts que mencionam este',
+  },
+  projetos: {
+    title: 'Projetos',
+    description: 'coisas que construí e coloquei no mundo.',
+    visitProject: 'Visitar projeto',
+    openInNewTab: 'Abrir {title} em nova aba',
+    comingSoon: 'em breve',
+    backToProjetos: 'Voltar aos Projetos',
+    empty: 'Nenhum projeto publicado ainda.',
   },
   styleguide: {
     title: 'Guia de Estilo & Tokens Visuais (Apenas Dev)',

@@ -22,6 +22,7 @@ export const en = {
   nav: {
     home: 'Home',
     posts: 'Posts',
+    projetos: 'Projects',
   },
   breadcrumbs: {
     prefix: 'Location:',
@@ -33,7 +34,7 @@ export const en = {
     toggleTheme: 'Toggle theme (auto/dark/light)',
   },
   search: {
-    placeholder: 'Search posts (Ctrl+K)...',
+    placeholder: 'Search posts and projects (Ctrl+K)...',
     openSearch: 'Search',
     noResults: 'No results found.',
     close: 'Close [Esc]',
@@ -76,6 +77,15 @@ export const en = {
     allDocuments: 'All Posts',
     tagsLabel: 'Tags:',
     backlinks: 'Posts mentioning this',
+  },
+  projetos: {
+    title: 'Projects',
+    description: 'things I built and put out into the world.',
+    visitProject: 'Visit project',
+    openInNewTab: 'Open {title} in new tab',
+    comingSoon: 'coming soon',
+    backToProjetos: 'Back to Projects',
+    empty: 'No projects published yet.',
   },
   styleguide: {
     title: 'Styleguide & Visual Tokens (Dev Only)',

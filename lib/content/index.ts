@@ -8,7 +8,7 @@ import { compileMarkdown } from './markdown';
 import { renderHastToJsx } from './render';
 import { ContentError } from './errors';
 
-const COLLECTIONS: Collection[] = ['posts'];
+const COLLECTIONS: Collection[] = ['posts', 'projetos'];
 
 /**
  * Lê e indexa todos os metadados brutos de todas as coleções de um idioma
@@ -91,8 +91,17 @@ export async function getAllPosts(
     }
   }
 
-  // Ordena por data decrescente (mais recentes primeiro)
-  posts.sort((a, b) => b.date.getTime() - a.date.getTime());
+  // Ordena por order crescente (quando definido) e depois por data decrescente
+  posts.sort((a, b) => {
+    if (a.order !== undefined && b.order !== undefined) {
+      if (a.order !== b.order) return a.order - b.order;
+    } else if (a.order !== undefined) {
+      return -1;
+    } else if (b.order !== undefined) {
+      return 1;
+    }
+    return b.date.getTime() - a.date.getTime();
+  });
 
   if (collection) {
     return posts.filter((p) => p.collection === collection);

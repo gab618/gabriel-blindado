@@ -19,6 +19,9 @@ export const PostFrontmatterSchema = z.object({
   status: z.enum(['seedling', 'budding', 'evergreen']).default('seedling'),
   aliases: z.array(z.string()).default([]),
   translationKey: z.string().optional(),
+  cover: z.string().optional(),
+  url: z.string().url('Project URL must be a valid URL').optional(),
+  order: z.number().int().optional(),
 });
 
 export type PostFrontmatter = z.infer<typeof PostFrontmatterSchema>;

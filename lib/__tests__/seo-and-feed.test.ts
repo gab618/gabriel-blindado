@@ -26,9 +26,13 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     // Core static routes
     expect(urls).toContain(`${siteConfig.url}/pt`);
     expect(urls).toContain(`${siteConfig.url}/pt/posts`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos`);
 
-    // Posts
+    // Posts & Projects
     expect(urls).toContain(`${siteConfig.url}/pt/posts/hello-world`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos/gabrielblindado`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos/cade-a-rosenda`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos/tirarotarot`);
 
     // Every entry must have a valid lastModified date
     for (const entry of sitemapEntries) {

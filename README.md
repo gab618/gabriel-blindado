@@ -50,6 +50,37 @@ Texto de introdução...
 
 ---
 
+### 2. Adicionar um Projeto
+
+- **Local:** `content/pt/projetos/<nome-do-arquivo>.md`
+- **Thumbnail:** Coloque a imagem em `public/projetos/<arquivo>.webp` (ou URL externa) e aponte no campo `cover`.
+- **Link externo vs Em breve:**
+  - Se o projeto já estiver no ar, informe `url: "https://..."` — aparecerá o botão `↗` para abrir direto em nova aba.
+  - Se o projeto ainda não estiver pronto para acesso externo, **basta omitir o campo `url`** — o card exibirá o selo **`[em breve]`** sem link externo, mas ainda abrirá a página de detalhes ao clicar no card.
+
+#### Template:
+
+```markdown
+---
+title: "Tirar o Tarot"
+description: "Plataforma online para tiragem e consulta de cartas de tarot."
+date: 2026-11-15
+status: evergreen
+cover: "/projetos/tirarotarot.svg"
+url: "https://tirarotarot.com.br"
+order: 3
+tags:
+  - web
+  - tarot
+---
+
+# Tirar o Tarot
+
+Detalhes sobre o projeto...
+```
+
+---
+
 ## Desenvolvimento Local
 
 ```bash

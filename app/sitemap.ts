@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const coreRoutes = [
       { path: `/${locale}`, priority: 1.0, freq: 'daily' as const },
       { path: `/${locale}/posts`, priority: 0.9, freq: 'daily' as const },
+      { path: `/${locale}/projetos`, priority: 0.8, freq: 'weekly' as const },
     ];
 
     for (const r of coreRoutes) {

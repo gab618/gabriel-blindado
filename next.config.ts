@@ -45,16 +45,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/:lang/projetos",
-        destination: "/:lang/posts",
-        permanent: true,
-      },
-      {
-        source: "/:lang/projetos/:path*",
-        destination: "/:lang/posts",
-        permanent: true,
-      },
-      {
         source: "/:lang/tags",
         destination: "/:lang/posts",
         permanent: true,

@@ -8,6 +8,7 @@ const eslintConfig = defineConfig([
   {
     files: [
       "app/[lang]/posts/**",
+      "app/[lang]/projetos/**",
       "lib/content/**",
     ],
     rules: {

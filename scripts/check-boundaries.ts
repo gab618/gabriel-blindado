@@ -87,6 +87,7 @@ function checkFile(relPath: string) {
   // 3. Content pages não podem importar ilhas nem 'client-only'
   const isContentCode =
     relPath.startsWith('app/[lang]/posts') ||
+    relPath.startsWith('app/[lang]/projetos') ||
     relPath.startsWith('lib/content');
 
   if (isContentCode) {

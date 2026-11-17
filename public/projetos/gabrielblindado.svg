@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#0d233a"/>
+  <g stroke="#1b3b5c" stroke-width="1">
+    <line x1="0" y1="90" x2="800" y2="90"/>
+    <line x1="0" y1="180" x2="800" y2="180"/>
+    <line x1="0" y1="270" x2="800" y2="270"/>
+    <line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="160" y1="0" x2="160" y2="450"/>
+    <line x1="320" y1="0" x2="320" y2="450"/>
+    <line x1="480" y1="0" x2="480" y2="450"/>
+    <line x1="640" y1="0" x2="640" y2="450"/>
+  </g>
+  <rect x="60" y="60" width="680" height="330" fill="#132f4c" stroke="#3b82f6" stroke-width="3"/>
+  <rect x="60" y="60" width="680" height="36" fill="#1e4976"/>
+  <circle cx="84" cy="78" r="6" fill="#60a5fa"/>
+  <circle cx="104" cy="78" r="6" fill="#3b82f6"/>
+  <text x="400" y="220" text-anchor="middle" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="36">gabrielblindado.com.br</text>
+  <text x="400" y="265" text-anchor="middle" fill="#93c5fd" font-family="monospace" font-size="18">[ cantinho pessoal na web ]</text>
+</svg>
