@@ -33,7 +33,7 @@ describe('Projetos Subsystem — Content Queries and Schema', () => {
     if (project) {
       expect(project.title).toBe('Cadê a Rosenda');
       expect(project.url).toBe('https://cade-a-rosenda.vercel.app');
-      expect(project.cover).toBe('/projetos/cade-a-rosenda.svg');
+      expect(project.cover).toBe('/projetos/cade-a-rosenda.webp');
       expect(project.body).toBeDefined();
     }
   });

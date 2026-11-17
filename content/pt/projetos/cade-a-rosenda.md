@@ -3,7 +3,7 @@ title: "Cadê a Rosenda"
 description: "Fiz esse site pra saber onde minha mãe está."
 date: 2026-11-10
 status: evergreen
-cover: "/projetos/cade-a-rosenda.svg"
+cover: "/projetos/cade-a-rosenda.webp"
 url: "https://cade-a-rosenda.vercel.app"
 order: 2
 tags:
