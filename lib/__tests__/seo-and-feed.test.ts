@@ -32,7 +32,7 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     expect(urls).toContain(`${siteConfig.url}/pt/posts/hello-world`);
     expect(urls).toContain(`${siteConfig.url}/pt/projetos/gabrielblindado`);
     expect(urls).toContain(`${siteConfig.url}/pt/projetos/cade-a-rosenda`);
-    expect(urls).toContain(`${siteConfig.url}/pt/projetos/tirarotarot`);
+    expect(urls).toContain(`${siteConfig.url}/pt/projetos/tirartarot`);
 
     // Every entry must have a valid lastModified date
     for (const entry of sitemapEntries) {

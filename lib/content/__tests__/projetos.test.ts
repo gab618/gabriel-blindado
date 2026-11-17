@@ -19,11 +19,11 @@ describe('Projetos Subsystem — Content Queries and Schema', () => {
     expect(projects.length).toBeGreaterThanOrEqual(3);
 
     const slugs = projects.map((p) => p.slug.join('/'));
-    expect(slugs).toEqual(['gabrielblindado', 'cade-a-rosenda', 'tirarotarot']);
+    expect(slugs).toEqual(['gabrielblindado', 'cade-a-rosenda', 'tirartarot']);
 
     expect(projects[0].url).toBe('https://gabrielblindado.com.br');
     expect(projects[1].url).toBe('https://cade-a-rosenda.vercel.app');
-    expect(projects[2].url).toBe('https://tirarotarot.com.br');
+    expect(projects[2].url).toBe('https://tirartarot.com.br');
     expect(projects[0].cover).toBe('/projetos/gabrielblindado.svg');
   });
 

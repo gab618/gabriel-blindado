@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   experimental: {
     globalNotFound: true,
+    agentUpgrade: "security",
   },
   async redirects() {
     return [

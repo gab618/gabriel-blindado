@@ -66,8 +66,8 @@ title: "Tirar o Tarot"
 description: "Plataforma online para tiragem e consulta de cartas de tarot."
 date: 2026-11-15
 status: evergreen
-cover: "/projetos/tirarotarot.svg"
-url: "https://tirarotarot.com.br"
+cover: "/projetos/tirartarot.svg"
+url: "https://tirartarot.com.br"
 order: 3
 tags:
   - web
