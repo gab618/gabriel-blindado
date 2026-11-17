@@ -3,7 +3,7 @@ title: "tirartarot.com.br"
 description: "Plataforma online para tiragem e consulta de cartas de tarot."
 date: 2026-11-15
 status: evergreen
-cover: "/projetos/tirartarot.svg"
+cover: "/projetos/tirartarot.webp"
 url: "https://tirartarot.com.br"
 order: 3
 tags:
