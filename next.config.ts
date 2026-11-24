@@ -1,9 +1,16 @@
 import type { NextConfig } from "next";
 
+const galeriaBase = process.env.NEXT_PUBLIC_GALERIA_IMAGE_BASE_URL?.replace(/\/?$/, "/");
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   typedRoutes: true,
+  images: {
+    remotePatterns: galeriaBase ? [new URL("**", galeriaBase)] : [],
+    qualities: [75, 85],
+    minimumCacheTTL: 2678400, // 31 dias: as imagens são imutáveis
+  },
   experimental: {
     globalNotFound: true,
     agentUpgrade: "security",

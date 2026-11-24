@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check:boundaries": "node --no-warnings --experimental-strip-types scripts/check-boundaries.ts",
+    "galeria:add": "node --no-warnings --experimental-strip-types scripts/galeria-add.ts",
     "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:boundaries && pnpm build"
   },
   "dependencies": {
@@ -29,9 +30,11 @@
     "shiki": "^4.5.0",
     "unified": "^11.0.5",
     "vfile": "^6.0.3",
+    "yaml": "^2.9.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1175.0",
     "@tailwindcss/turbopack": "^4",
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
@@ -40,6 +43,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.0.5"

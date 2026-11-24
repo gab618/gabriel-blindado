@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { ACTIVE_LOCALES, type Locale } from '@/lib/i18n/config';
 import { getAllPosts } from '@/lib/content';
+import { getItens, getTemas } from '@/lib/galeria';
 import { siteConfig } from '@/lib/site';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -16,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { path: `/${locale}`, priority: 1.0, freq: 'daily' as const },
       { path: `/${locale}/posts`, priority: 0.9, freq: 'daily' as const },
       { path: `/${locale}/projetos`, priority: 0.8, freq: 'weekly' as const },
+      { path: `/${locale}/galeria`, priority: 0.8, freq: 'weekly' as const },
     ];
 
     for (const r of coreRoutes) {
@@ -42,6 +44,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
         alternates: Object.keys(languages).length > 0 ? { languages } : undefined,
       });
+    }
+
+    // 3. Galeria (temas e itens)
+    const temas = await getTemas();
+    for (const tema of temas) {
+      entries.push({
+        url: `${baseUrl}/${locale}/galeria/${tema.slug}`,
+        lastModified: tema.coverItem?.date || defaultDate,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+
+      const itens = await getItens(tema.slug);
+      for (const item of itens) {
+        entries.push({
+          url: `${baseUrl}/${locale}/galeria/${tema.slug}/${item.id}`,
+          lastModified: item.date,
+          changeFrequency: 'monthly',
+          priority: 0.6,
+        });
+      }
     }
   }
 

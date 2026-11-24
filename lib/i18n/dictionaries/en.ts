@@ -23,6 +23,7 @@ export const en = {
     home: 'Home',
     posts: 'Posts',
     projetos: 'Projects',
+    galeria: 'Gallery',
   },
   breadcrumbs: {
     prefix: 'Location:',
@@ -86,6 +87,19 @@ export const en = {
     comingSoon: 'coming soon',
     backToProjetos: 'Back to Projects',
     empty: 'No projects published yet.',
+  },
+  galeria: {
+    title: 'Gallery',
+    description: 'drawings, photos and visual pieces grouped by theme.',
+    empty: 'No images in this theme yet.',
+    emptyTemas: 'No themes in the gallery yet.',
+    previous: 'Previous',
+    next: 'Next',
+    backToTema: 'Back to {tema}',
+    backToGaleria: 'Back to Gallery',
+    itemsCount: '{count} image(s)',
+    mediumLabel: 'Medium:',
+    dateLabel: 'Date:',
   },
   styleguide: {
     title: 'Styleguide & Visual Tokens (Dev Only)',

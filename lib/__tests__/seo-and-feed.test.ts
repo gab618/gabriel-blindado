@@ -27,6 +27,8 @@ describe('SEO, Sitemap, Robots & RSS Feed', () => {
     expect(urls).toContain(`${siteConfig.url}/pt`);
     expect(urls).toContain(`${siteConfig.url}/pt/posts`);
     expect(urls).toContain(`${siteConfig.url}/pt/projetos`);
+    expect(urls).toContain(`${siteConfig.url}/pt/galeria`);
+    expect(urls).toContain(`${siteConfig.url}/pt/galeria/desenhos`);
 
     // Posts & Projects
     expect(urls).toContain(`${siteConfig.url}/pt/posts/hello-world`);

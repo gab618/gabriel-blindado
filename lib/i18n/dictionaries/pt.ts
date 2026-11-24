@@ -29,6 +29,7 @@ export const pt = {
     home: 'Início',
     posts: 'Posts',
     projetos: 'Projetos',
+    galeria: 'Galeria',
   },
   breadcrumbs: {
     prefix: 'Localização:',
@@ -92,6 +93,19 @@ export const pt = {
     comingSoon: 'em breve',
     backToProjetos: 'Voltar aos Projetos',
     empty: 'Nenhum projeto publicado ainda.',
+  },
+  galeria: {
+    title: 'Galeria',
+    description: 'desenhos, fotos e coisas visuais separadas por tema.',
+    empty: 'Nenhuma imagem neste tema ainda.',
+    emptyTemas: 'Nenhum tema cadastrado na galeria ainda.',
+    previous: 'Anterior',
+    next: 'Próxima',
+    backToTema: 'Voltar para {tema}',
+    backToGaleria: 'Voltar à Galeria',
+    itemsCount: '{count} imagem(ns)',
+    mediumLabel: 'Técnica:',
+    dateLabel: 'Data:',
   },
   styleguide: {
     title: 'Guia de Estilo & Tokens Visuais (Apenas Dev)',

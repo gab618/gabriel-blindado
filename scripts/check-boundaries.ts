@@ -88,7 +88,9 @@ function checkFile(relPath: string) {
   const isContentCode =
     relPath.startsWith('app/[lang]/posts') ||
     relPath.startsWith('app/[lang]/projetos') ||
-    relPath.startsWith('lib/content');
+    relPath.startsWith('app/[lang]/galeria') ||
+    relPath.startsWith('lib/content') ||
+    relPath.startsWith('lib/galeria');
 
   if (isContentCode) {
     if (content.includes("from 'client-only'") || content.includes('from "client-only"')) {

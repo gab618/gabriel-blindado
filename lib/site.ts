@@ -2,7 +2,7 @@ import type { Dictionary } from './i18n/dictionaries/pt';
 
 export interface NavRoute {
   labelKey: keyof Dictionary['nav'];
-  path: '/' | '/posts' | '/projetos';
+  path: '/' | '/posts' | '/projetos' | '/galeria';
   match?: 'exact' | 'prefix';
 }
 
@@ -20,4 +20,5 @@ export const NAV_ROUTES: readonly NavRoute[] = [
   { labelKey: 'home', path: '/', match: 'exact' },
   { labelKey: 'posts', path: '/posts', match: 'prefix' },
   { labelKey: 'projetos', path: '/projetos', match: 'prefix' },
+  { labelKey: 'galeria', path: '/galeria', match: 'prefix' },
 ] as const;
